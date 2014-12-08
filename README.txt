@@ -1,6 +1,6 @@
 === History Search by Webloft ===
 Contributors: sundaune
-Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett
+Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft
 Requires at least: 4.0
 Tested up to: 4.0
 Stable tag: 1.0
