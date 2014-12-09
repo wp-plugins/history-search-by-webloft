@@ -104,11 +104,19 @@ NORWEGIAN:
 
 == Change log ==
 
+= 1.0.1 =
+
+Updated readme.txt to explain usage of shortcode
+
 = 1.0 =
 
 * First version
 
 NORWEGIAN:
+
+= 1.0.1 =
+
+Oppdatert readme.txt med forklaring av bruk av kortkode
 
 = 1.0 =
 
