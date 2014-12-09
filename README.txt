@@ -3,7 +3,7 @@ Contributors: sundaune
 Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft
 Requires at least: 4.0
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,6 +42,21 @@ Make sure you have downloaded the .zip file containing the plugin. Then:
 3. Activate the plugin from the control panel
 
 = Or install it via the Wordpress repository! =
+
+To place the search form in your post/page, simply insert this shortcode:
+
+[finnlokalhistorie_skjema]
+
+This is the simplest way. There are two optional parameters you can pass along:
+
+	1. width : The width of the form. Given in pecentage (e.g. "40%") or pixels (e.g. "400px"). Default is "250px".
+	2. makstreff : Maximum number of hits to retrieve from each source. Default is 25.
+
+Example of shortcode to insert a search form 300px wide and fetch a maximum of 50 hits from each source:
+
+[finnlokalhistorie_skjema width="300px" makstreff="50"]
+
+Note that the search form can be styled to your liking by overruling the CSS included with the plugin. 
 
 NORWEGIAN:
 
