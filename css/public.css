@@ -40,15 +40,16 @@ img.lokalhistorieresultcover {
 .lokalhistorie_skjema {
 	width: 100%;
 	margin: 20px 0px;
+	clear: both;
 	}
 
-.lokalhistorie_skjema h1 {
+.lokalhistorie_skjema h2 {
 	color: #000;
 	width: 100%;
-	padding-bottom: 10px;
+	font-size: 1.6em;
 	border-bottom: 3px solid orange;
+	margin-bottom: 10px;
 	text-align: center;
-	font-weight: lighter;
 	}
 
 /*
