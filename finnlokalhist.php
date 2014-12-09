@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       History Search by Webloft
  * Plugin URI:        http://www.bibvenn.no/finnlokalhist
- * Description:       S&oslash;ker i lokalhistorisk materiale p&aring; tvers av flere baser
+ * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical materials (books, images...)
  * Version:           1.0.1
  * Author:            H&aring;kon Sundaune
  * Author URI:        http://www.sundaune.no
