@@ -3,7 +3,7 @@ Contributors: sundaune
 Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft
 Requires at least: 4.0
 Tested up to: 4.0
-Stable tag: 1.0.1
+Stable tag: 1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,8 +49,8 @@ To place the search form in your post/page, simply insert this shortcode:
 
 This is the simplest way. There are two optional parameters you can pass along:
 
-	1. width : The width of the form. Given in pecentage (e.g. "40%") or pixels (e.g. "400px"). Default is "250px".
-	2. makstreff : Maximum number of hits to retrieve from each source. Default is 25.
+* width : The width of the form. Given in pecentage (e.g. "40%") or pixels (e.g. "400px"). Default is "250px".
+* makstreff : Maximum number of hits to retrieve from each source. Default is 25.
 
 Example of shortcode to insert a search form 300px wide and fetch a maximum of 50 hits from each source:
 
@@ -80,6 +80,21 @@ Sørg for at du har lastet ned ZIP-filen som inneholder innstikket. Deretter:
 
 = Eller installér det via Wordpress-katalogen! =
 
+For å sette inn søkeboksen på siden eller i innleget ditt, bruk følgende kortkode:
+
+[finnlokalhistorie_skjema]
+
+Dette er den enkleste måten. Det er også to valgfrie parametre du kan bruke:
+
+* width : Bredden på boksen. Oppgis i prosent (f.eks. "40%") eller piksler (f.eks. "400px"). Standardverdi er "250px".
+* makstreff : Maks. antall treff å hente fra hver kilde. Standardverdi er 25.
+
+Her er et eksempel som setter inn en 300 piksler bred søkeboks og henter maks. 50 treff fra hver kilde:
+
+[finnlokalhistorie_skjema width="300px" makstreff="50"]
+
+Du kan også bestemme i detalj hvordan søkeboksen skal se ut ved å redigere den medfølgende CSS-filen.
+
 == Frequently Asked Questions ==
 
 = Why are there no frequently asked questions? =
@@ -104,19 +119,11 @@ NORWEGIAN:
 
 == Change log ==
 
-= 1.0.1 =
-
-Updated readme.txt to explain usage of shortcode
-
 = 1.0 =
 
 * First version
 
 NORWEGIAN:
-
-= 1.0.1 =
-
-Oppdatert readme.txt med forklaring av bruk av kortkode
 
 = 1.0 =
 
