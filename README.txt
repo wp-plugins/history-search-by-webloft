@@ -119,11 +119,27 @@ NORWEGIAN:
 
 == Change log ==
 
+= 1.0.2 =
+
+* Improved and more readable readme.txt
+
+= 1.0.1 =
+
+* Fixed various errors
+
 = 1.0 =
 
 * First version
 
 NORWEGIAN:
+
+= 1.0.2 =
+
+* Bedre og mer forståelig readme.txt
+
+= 1.0.1 =
+
+* Fikset forskjellig småtteri
 
 = 1.0 =
 
