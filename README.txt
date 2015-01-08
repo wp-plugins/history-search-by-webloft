@@ -3,7 +3,7 @@ Contributors: sundaune
 Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft
 Requires at least: 4.0
 Tested up to: 4.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -119,6 +119,11 @@ NORWEGIAN:
 
 == Change log ==
 
+= 1.0.3 = 
+
+* Bugfix: header text not respecting specified width
+* Various cosmetic improvements
+
 = 1.0.2 =
 
 * Improved and more readable readme.txt
@@ -132,6 +137,11 @@ NORWEGIAN:
 * First version
 
 NORWEGIAN:
+
+= 1.0.3 =
+
+* Bugfix: Angitt bredde ble ikke respektert i overskriftstekst
+* Forskjellige kosmetiske forbedringer
 
 = 1.0.2 =
 
@@ -147,4 +157,8 @@ NORWEGIAN:
 
 == Upgrade Notice ==
 
-No upgrade notice at this point
+This is merely cosmetics and a small bugfix regarding width
+
+NORWEGIAN:
+
+Dette er hovedsaklig små kosmetiske endringer og en bugfix ang. bredde
