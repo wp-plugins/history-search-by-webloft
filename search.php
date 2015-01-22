@@ -1,6 +1,6 @@
 <?php
 
-// FINNER LOKALHISTORIE
+// FINNER LOKALHIST+ORIE
 
 // Declare variables
 
