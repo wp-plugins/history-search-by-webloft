@@ -1,9 +1,9 @@
 === History Search by Webloft ===
 Contributors: sundaune
-Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft
+Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn
 Requires at least: 4.0
 Tested up to: 4.0
-Stable tag: 1.0.2
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ The plugin uses jQuery to automatically show the search result under the search 
 
 NORWEGIAN:
 
-Dette innstikket søker blant PDF-bøker og e-bøker fra Open Library, Nasjonalbiblioteket og Bokselskap.no. Når innstikket aktiveres installerer det en kortkode (shortcode) som du kan sette inn i sider og innlegg for å vise en søkeboks. I kortkoden kan det angis bredde på søkeboksen i piksler eller prosent, samt hvor mange treff som maksimalt skal hentes fra hver kilde. 
+Dette innstikket søker i gratis bøker, bilder og aviser fra Nasjonalbiblioteket og kulturdatakilden Norvegiana. Når innstikket aktiveres installerer det en kortkode (shortcode) som du kan sette inn i sider og innlegg for å vise en søkeboks. I kortkoden kan det angis bredde på søkeboksen i piksler eller prosent, samt hvor mange treff som maksimalt skal hentes fra hver kilde. 
 
 Innstikket benytter seg av jQuery for å automatisk vise en oppdatert treffliste under søkeboksen etter hvert som du skriver. Får du mange treff kan du klikke på forstørrelsesglasset eller trykke Enter for å åpne trefflisten i et nytt vindu, i en tabell som kan sorteres.
 
@@ -109,15 +109,33 @@ Fordi dette er første versjon - spørsmålene kommer nok etter hvert.
 
 == Screenshots ==
 
-1. This is the search form
+1. This is what your query result could look like
 2. Here is the shortcode as it appears on a page or in a post
 
 NORWEGIAN:
 
-1. Slik ser søkeboksen ut
+1. Slik kan trefflisten din se ut
 2. Slik setter du inn kortkoden i sider eller innlegg
 
 == Change log ==
+
+= 1.0.4 =
+
+* Corrected errors in readme.txt
+* Uploaded new screenshot
+ 
+= 1.0.3 = 
+
+* Bugfix: header text not respecting specified width
+* Various cosmetic improvements
+
+= 1.0.2 =
+
+* Improved and more readable readme.txt
+
+= 1.0.1 =
+
+* Fixed various errors
 
 = 1.0 =
 
@@ -125,10 +143,32 @@ NORWEGIAN:
 
 NORWEGIAN:
 
+= 1.0.4 =
+
+* Rettet feil i readme.txt
+* Tok nytt skjermskudd
+
+= 1.0.3 =
+
+* Bugfix: Angitt bredde ble ikke respektert i overskriftstekst
+* Forskjellige kosmetiske forbedringer
+
+= 1.0.2 =
+
+* Bedre og mer forståelig readme.txt
+
+= 1.0.1 =
+
+* Fikset forskjellig småtteri
+
 = 1.0 =
 
 * Første versjon
 
 == Upgrade Notice ==
 
-No upgrade notice at this point
+This is merely cosmetics and a small bugfix regarding width
+
+NORWEGIAN:
+
+Dette er hovedsaklig små kosmetiske endringer og en bugfix ang. bredde

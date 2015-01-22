@@ -12,7 +12,7 @@
  * Plugin Name:       History Search by Webloft
  * Plugin URI:        http://www.bibvenn.no/finnlokalhist
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical materials (books, images...)
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            H&aring;kon Sundaune
  * Author URI:        http://www.sundaune.no
  * Text Domain:       finnlokalhistorie-locale
@@ -72,9 +72,9 @@ $htmlout .= '<input type="hidden" id="finnlokalhist_makstreff" value="' . $makst
 $htmlout .= '<br style="clear: both;">';
 //$htmlout .= '</form>';
 $htmlout .= '</div>';
-$htmlout .= '<h4 id="lokalhistorieresults-text" style="display: none;">';
+$htmlout .= '<h4 id="lokalhistorieresults-text" style="line-height: 1.1em; display: none; width: ' . $width . '">';
 //$htmlout .= '<img style="float: left; margin-right: 2%; margin-bottom: 5px; box-shadow: none; width: 40px;" class="webloftlogo" src="' . plugins_url( 'g/webloftlogo.png', __FILE__ ) . '" alt="Bibliotekarens beste venn / Webløft" />';
-$htmlout .= 'Viser maks. ' . $makstreff . ' treff for: <b id="finnlokalhistorie_search-string"></b><br /><i>S&oslash;ket oppdateres mens du skriver, og kan ta noen sekunder... v&aelig;r t&aring;lmodig! Vil du &aring;pne s&oslash;ket i et eget vindu og eventuelt vise flere treff, klikk <input style="vertical-align: top;" type="submit" value="her!"></form></i></h4>';
+$htmlout .= 'Viser maks. ' . $makstreff . ' treff for: <b id="finnlokalhistorie_search-string"></b><br /><i>S&oslash;ket oppdateres mens du skriver, og kan ta noen sekunder... v&aelig;r t&aring;lmodig!<br><input style="margin: 5px 0; width: 100%;" type="submit" value="&Aring;pne s&oslash;ket i et eget vindu ved &aring; klikke her!"></form></i></h4>';
 $htmlout .= '<div id="finnlokalhistorie_results" style="' . $width . '"></div>';
 
 return $htmlout;
