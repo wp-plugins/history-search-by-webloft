@@ -2,8 +2,8 @@
 Contributors: sundaune
 Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn
 Requires at least: 4.0
-Tested up to: 4.0
-Stable tag: 1.0.4
+Tested up to: 4.1
+Stable tag: 1.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -119,6 +119,11 @@ NORWEGIAN:
 
 == Change log ==
 
+= 1.0.5 =
+
+* Hitting Enter no longer opens a new window - you have to click the button
+* Removed superfluous widget code
+
 = 1.0.4 =
 
 * Corrected errors in readme.txt
@@ -142,6 +147,11 @@ NORWEGIAN:
 * First version
 
 NORWEGIAN:
+
+= 1.0.5 = 
+
+* Trykk på Enter åpner ikke lenger nytt vindu, du må klikke på knappen
+* Fjernet overflødig widgetkode
 
 = 1.0.4 =
 
@@ -167,8 +177,8 @@ NORWEGIAN:
 
 == Upgrade Notice ==
 
-This is merely cosmetics and a small bugfix regarding width
+No upgrade notive at this point
 
 NORWEGIAN:
 
-Dette er hovedsaklig små kosmetiske endringer og en bugfix ang. bredde
+Ingen beskjeder

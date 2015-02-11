@@ -12,7 +12,7 @@
  * Plugin Name:       History Search by Webloft
  * Plugin URI:        http://www.bibvenn.no/finnlokalhist
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical materials (books, images...)
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            H&aring;kon Sundaune
  * Author URI:        http://www.sundaune.no
  * Text Domain:       finnlokalhistorie-locale
@@ -29,13 +29,17 @@ if ( ! defined( 'WPINC' ) ) {
 
 // INCLUDE NECESSARY  
     
-    add_action( 'wp_enqueue_scripts', 'finnlokalhistorie_safely_add_stylesheet' );
+    add_action( 'wp_enqueue_scripts', 'finnlokalhistorie_safely_add_stylesheets_and_scripts' );
 
     /**
      * Add stylesheet to the page
      */
-    function finnlokalhistorie_safely_add_stylesheet() {
+    function finnlokalhistorie_safely_add_stylesheets_and_scripts() {
         wp_enqueue_style( 'finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
+		wp_enqueue_style('finnlokalhist-admin-styles', plugins_url( 'css/admin.css', __FILE__ ) );
+		wp_enqueue_script('finnlokalhist-script', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-tab-script', plugins_url( 'js/tabcontent.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array('jquery') );
     }
 
 // FIRST COMES THE SHORTCODE... EH, CODE!
@@ -43,7 +47,7 @@ if ( ! defined( 'WPINC' ) ) {
 function finnlokalhistorie_func ($atts){
 
 extract(shortcode_atts(array(
-	'width' => "250px",
+	'width' => "80%",
 	'makstreff' => "25"
    ), $atts));
 
@@ -64,7 +68,7 @@ $htmlout .= '<h2 style="text-align: center;">S&oslash;k i lokalhistorie</h2>';
 $htmlout .= '<form id="lokalhistform" target="_blank" method="GET" action="' . plugins_url('lokalhist_fullpagesearch.php' , __FILE__) . '">';
 
 $htmlout .= '<table style="width: 85%; border: 0; margin: 0; padding: 0;"><tr><td style="border: 0; padding: 0; margin: 0; vertical-align: middle; width: 80%;">';
-$htmlout .= '<input name="query" type="text" autocomplete="off" id="lokalhistorie_search" placeholder="S&oslash;k etter..." />';
+$htmlout .= '<input onkeypress="return handleEnter(this, event)" name="query" type="text" autocomplete="off" id="lokalhistorie_search" placeholder="S&oslash;k etter..." />';
 //$htmlout .= '</td><td style="border: 0; padding: 0; margin: 0; vertical-align: middle; width: 20%;">';
 //$htmlout .= '<input type="submit" value="" class="finnebok_submit" />';
 $htmlout .= '</td></tr></table>';
@@ -74,8 +78,8 @@ $htmlout .= '<br style="clear: both;">';
 $htmlout .= '</div>';
 $htmlout .= '<h4 id="lokalhistorieresults-text" style="line-height: 1.1em; display: none; width: ' . $width . '">';
 //$htmlout .= '<img style="float: left; margin-right: 2%; margin-bottom: 5px; box-shadow: none; width: 40px;" class="webloftlogo" src="' . plugins_url( 'g/webloftlogo.png', __FILE__ ) . '" alt="Bibliotekarens beste venn / Webløft" />';
-$htmlout .= 'Viser maks. ' . $makstreff . ' treff for: <b id="finnlokalhistorie_search-string"></b><br /><i>S&oslash;ket oppdateres mens du skriver, og kan ta noen sekunder... v&aelig;r t&aring;lmodig!<br><input style="margin: 5px 0; width: 100%;" type="submit" value="&Aring;pne s&oslash;ket i et eget vindu ved &aring; klikke her!"></form></i></h4>';
-$htmlout .= '<div id="finnlokalhistorie_results" style="' . $width . '"></div>';
+$htmlout .= 'Viser maks. ' . $makstreff . ' treff for: <b id="finnlokalhistorie_search-string"></b><br /><i>S&oslash;ket oppdateres mens du skriver, og kan ta noen sekunder... v&aelig;r t&aring;lmodig!<br><input style="margin: 5px 0; padding: 10px 2%; width: 96%;" type="submit" value="&Aring;pne s&oslash;ket i et eget vindu ved &aring; klikke her!"></form></i></h4>';
+$htmlout .= '<div id="finnlokalhistorie_results" style="width: ' . $width . ';"></div>';
 
 return $htmlout;
 
@@ -247,7 +251,7 @@ class finnlokalhistorie_widget extends WP_Widget {
 		if ( isset ( $cache[ $args['widget_id'] ] ) )
 			return print $cache[ $args['widget_id'] ];
 		
-		// go on with your widget logic, put everything into a string and …
+		// go on with your widget logic, put everything into a string and 
 
 
 		extract( $args, EXTR_SKIP );
@@ -344,18 +348,18 @@ class finnlokalhistorie_widget extends WP_Widget {
 	/**
 	 * Registers and enqueues admin-specific styles.
 	 */
-	public function register_admin_styles() {
+	public function register_admin_styles() { // Vi gjør dette øverst siden widget er avslått
 
-		wp_enqueue_style( $this->get_widget_slug().'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ) );
+	// wp_enqueue_style( $this->get_widget_slug().'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ) );
 
 	} // end register_admin_styles
 
 	/**
 	 * Registers and enqueues admin-specific JavaScript.
 	 */
-	public function register_admin_scripts() {
+	public function register_admin_scripts() { // Vi gjør dette øverst siden widget er avslått
 
-		wp_enqueue_script( $this->get_widget_slug().'-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array('jquery') );
+	//	wp_enqueue_script( $this->get_widget_slug().'-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array('jquery') );
 
 	} // end register_admin_scripts
 
@@ -372,14 +376,15 @@ class finnlokalhistorie_widget extends WP_Widget {
 	/**
 	 * Registers and enqueues widget-specific scripts.
 	 */
-	public function register_widget_scripts() {
+	public function register_widget_scripts() { // Vi gjør dette øverst siden widget er avslått
 
-		wp_enqueue_script( $this->get_widget_slug().'-script', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
-		wp_enqueue_script( $this->get_widget_slug().'-tab-script', plugins_url( 'js/tabcontent.js', __FILE__ ), array('jquery') );
+//		wp_enqueue_script( $this->get_widget_slug().'-script', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
+//		wp_enqueue_script( $this->get_widget_slug().'-tab-script', plugins_url( 'js/tabcontent.js', __FILE__ ), array('jquery') );
 
 	} // end register_widget_scripts
 
 } // end class
 
-// TODO: Remember to change 'Widget_Name' to match the class name definition
-add_action( 'widgets_init', create_function( '', 'register_widget("finnlokalhistorie_widget");' ) );
+// IKKE WIDGET FORELØPIG
+
+//add_action( 'widgets_init', create_function( '', 'register_widget("finnlokalhistorie_widget");' ) );
