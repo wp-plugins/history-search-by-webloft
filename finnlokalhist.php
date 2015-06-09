@@ -9,7 +9,7 @@
  * @copyright 2015 Håkon M. E. Sundaune
  *
  * @wordpress-plugin
- * Plugin Name:       WL Kultursøk
+ * Plugin Name:       WL Kulturs&oslash;k
  * Plugin URI:        http://www.bibvenn.no/
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical material (books, images, video, audio...)
  * Version:           2.0
@@ -109,7 +109,7 @@ add_action('admin_menu', 'lokalhist_setuppage');
 add_action('admin_init', 'lokalhist_registersettings');
 
 function lokalhist_setuppage() {
-    add_options_page("WL Kultursøk", "WL Kultursøk", "manage_options", "lokalhist_options", "lokalhist_settings_page");
+    add_options_page("WL Kulturs&oslash;k", "WL Kulturs&oslash;k", "manage_options", "lokalhist_options", "lokalhist_settings_page");
 }
 
 function lokalhist_registersettings() {
