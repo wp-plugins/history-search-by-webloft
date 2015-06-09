@@ -1,0 +1,14 @@
+Alle søkemoduler legger til treff i $treffliste og lagrer antall treff i $antalltreff['slug'] f.eks. $antalltreff['bokhylla']
+
+Alle elementer i $antalltreff skal inneholde:
+
+- bilde (til illustrasjon, f.eks. omslagsbilde)
+- tittel
+- ansvar (forfatter, fotograf etc.)
+- url til digitalt objekt
+- kilde (f.eks. "Bilder hos NB")
+- slug (av kilde, f.eks. "nbbilder")
+- utgitt (informasjon om utgiver)
+- fysisk (sideantall, negativer i plastlomme etc.)
+- beskrivelse (kan settes sammen av ymse)
+- materialtype (bok, fotografi...)

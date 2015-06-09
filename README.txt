@@ -1,9 +1,9 @@
-=== History Search by Webloft ===
+=== WL Kultursøk ===
 Contributors: sundaune
-Tags: Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn
+Tags: Webekspertene, Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn, Bibliotekarens beste venn, kultur, kultursøk, norvegiana
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 1.0.5
+Stable tag: 2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,15 +11,11 @@ Find historical material from free Norwegian sources. Norwegian: Finn lokalhisto
 
 == Description ==
 
-This plugin searches for free books, newspapers and photos available from Norvegiana and the Norwegian National Library. Upon activation the plugin installs a shortcode available for pages and posts. Using this shortcode will insert a search form - the width of this box in pixels or percent as well as the maximum number of hits to retreieve from each source is specified as arguments to the shortcode. 
-
-The plugin uses jQuery to automatically show the search result under the search forms in real time as you type. If you get a great number of hits you can click on the magnifying glass or hit Enter to open the search results in a sortable table in a new window. 
+This plugin searches for culture related objects from many freely available Norwegian sources: Books, digital stories, photos, video, audio and more. Upon activation the plugin installs a shortcode available for pages and posts. Using this shortcode will insert a search form - the maximum number of hits to retreieve from each source is specified as arguments to the shortcode. When searching, each search will get its own unique URL for sharing with others. 
 
 NORWEGIAN:
 
-Dette innstikket søker i gratis bøker, bilder og aviser fra Nasjonalbiblioteket og kulturdatakilden Norvegiana. Når innstikket aktiveres installerer det en kortkode (shortcode) som du kan sette inn i sider og innlegg for å vise en søkeboks. I kortkoden kan det angis bredde på søkeboksen i piksler eller prosent, samt hvor mange treff som maksimalt skal hentes fra hver kilde. 
-
-Innstikket benytter seg av jQuery for å automatisk vise en oppdatert treffliste under søkeboksen etter hvert som du skriver. Får du mange treff kan du klikke på forstørrelsesglasset eller trykke Enter for å åpne trefflisten i et nytt vindu, i en tabell som kan sorteres.
+Denne utvidelsen søker i kulturrelatert materiale fra mange fritt tilgjengelige norske kilder: Bøker, digitale fortellinger, bilder, video lyd og annet. Når utvidelsen aktiveres installerer den en kortkode (shortcode) som du kan sette inn i sider og innlegg for å vise en søkeboks. I kortkoden kan det angis hvor mange treff som maksimalt skal hentes fra hver kilde. Hvert søk vil få sin egen unike URL slik at det kan deles med andre. 
 
 == Installation ==
 
@@ -37,24 +33,23 @@ Make sure you have downloaded the .zip file containing the plugin. Then:
 
 Make sure you have downloaded the .zip file containing the plugin. Then:
 
-1. Unzip the folder 'finnlokalhist' to your local drive
-2. Upload the folder 'finnlokalhist' to the '/wp-content/plugins/' folder (or wherever you store your plugins)
+1. Unzip the folder 'wl-kultursok' to your local drive
+2. Upload the folder 'wl-kultursok' to the '/wp-content/plugins/' folder (or wherever you store your plugins)
 3. Activate the plugin from the control panel
 
 = Or install it via the Wordpress repository! =
 
 To place the search form in your post/page, simply insert this shortcode:
 
-[finnlokalhistorie_skjema]
+[wl-kultursok]
 
-This is the simplest way. There are two optional parameters you can pass along:
+This is the simplest way. There is an optional parameter you can pass along:
 
-* width : The width of the form. Given in pecentage (e.g. "40%") or pixels (e.g. "400px"). Default is "250px".
 * makstreff : Maximum number of hits to retrieve from each source. Default is 25.
 
-Example of shortcode to insert a search form 300px wide and fetch a maximum of 50 hits from each source:
+Example of shortcode to insert a search form and fetch a maximum of 30 hits from each source:
 
-[finnlokalhistorie_skjema width="300px" makstreff="50"]
+[wl-kultursok makstreff="30"]
 
 Note that the search form can be styled to your liking by overruling the CSS included with the plugin. 
 
@@ -74,24 +69,23 @@ Sørg for at du har lastet ned ZIP-filen som inneholder innstikket. Deretter:
 
 Sørg for at du har lastet ned ZIP-filen som inneholder innstikket. Deretter:
 
-1. Pakk ut mappen 'finnlokalhist' til datamaskinen din
-2. Last opp mappen 'finnlokalhist' til '/wp-content/plugins/'-katalogen under din Wordpress-installasjon
+1. Pakk ut mappen 'wl-kultursok' til datamaskinen din
+2. Last opp mappen 'wl-kultursok' til '/wp-content/plugins/'-katalogen under din Wordpress-installasjon
 3. Aktiver innstikket fra kontrollpanelet
 
 = Eller installér det via Wordpress-katalogen! =
 
 For å sette inn søkeboksen på siden eller i innleget ditt, bruk følgende kortkode:
 
-[finnlokalhistorie_skjema]
+[wl-kultursok]
 
-Dette er den enkleste måten. Det er også to valgfrie parametre du kan bruke:
+Dette er den enkleste måten. Det er også en valgfri parameter du kan bruke:
 
-* width : Bredden på boksen. Oppgis i prosent (f.eks. "40%") eller piksler (f.eks. "400px"). Standardverdi er "250px".
-* makstreff : Maks. antall treff å hente fra hver kilde. Standardverdi er 25.
+* makstreff : Maks. antall treff å hente fra hver kilde. Standardverdi er 25, maks er 100.
 
-Her er et eksempel som setter inn en 300 piksler bred søkeboks og henter maks. 50 treff fra hver kilde:
+Her er et eksempel som setter inn en søkeboks og henter maks. 30 treff fra hver kilde:
 
-[finnlokalhistorie_skjema width="300px" makstreff="50"]
+[wl-kultursok makstreff="30"]
 
 Du kan også bestemme i detalj hvordan søkeboksen skal se ut ved å redigere den medfølgende CSS-filen.
 
@@ -118,6 +112,19 @@ NORWEGIAN:
 2. Slik setter du inn kortkoden i sider eller innlegg
 
 == Change log ==
+
+= 2.0 =
+
+Major rewrite.
+
+* Code cleanup to avoid functions conflicting with other plugins
+* Now fetches book covers from Webloft's own server
+* No longer search-as-you-type
+* Module-based system for adding new sources
+* Added several new sources: Bærumkunst, Askerbilder, Bærumbilder, Digitalt fortalt, Digitalt Museum 
+* Removed NB newspapers as a source
+* Added error handling for cases where we don't get a decent result (broken XML, timeouts...)
+* Each search now gets its own permalink (URL)
 
 = 1.0.5 =
 
@@ -147,6 +154,18 @@ NORWEGIAN:
 * First version
 
 NORWEGIAN:
+
+= 2.0 =
+
+Stor overhaling
+
+* Rydding i kode for å unngå at funksjoner kommer i konflikt med andre utvidelser
+* Henter nå omslagsbilder fra Webløfts egen server
+* Søker ikke lenger automatisk mens du skriver
+* Modulbasert innlegging av nye søkekilder
+* Lagt til mange nye søkekilder: Bærumkunst, Askerbilder, Bærumbilder, Digitalt fortalt, Digitalt Museum 
+* Fjernet aviser fra Nasjonalbiblioteket som søkekilde
+* Mulighet for å lenke direkte til søk
 
 = 1.0.5 = 
 
