@@ -1,4 +1,4 @@
-=== WL Kultursøk ===
+=== WL Kulturs&oslash;k ===
 Contributors: sundaune
 Tags: Webekspertene, Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn, Bibliotekarens beste venn, kultur, kultursøk, norvegiana
 Requires at least: 4.0
