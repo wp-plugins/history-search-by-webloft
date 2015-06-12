@@ -46,6 +46,7 @@ $journals = new File_MARCXML($newfile, File_MARC::SOURCE_STRING);
 $hitcounter = 0;
 
 /*
+ID
 slug
 url
 bilde
@@ -58,6 +59,12 @@ while ($record = $journals->next()) {
 
 $beskrivelse = '';
 
+	// ID
+	if ($record->getField("001")) {
+		$baerumkunsttreff[$hitcounter]['id'] = ($record->getField("001"));
+		$baerumkunsttreff[$hitcounter]['id'] = substr($baerumkunsttreff[$hitcounter]['id'] , 5);
+	}
+
 	// Slug
 	$baerumkunsttreff[$hitcounter]['slug'] = 'baerumkunst';
 
@@ -65,10 +72,12 @@ $beskrivelse = '';
 	if ($record->getField("856")) {
 		if ($record->getField("856")->getSubfield("u")) {
 			$baerumkunsttreff[$hitcounter]['bilde'] = $record->getField("856")->getSubfield("u");
-			$baerumkunsttreff[$hitcounter]['bilde'] = $domain . substr($baerumkunsttreff[$hitcounter]['bilde'], 5); // fjerne feltkoden i starten
+			$baerumkunsttreff[$hitcounter]['bilde'] = $domain . substr($baerumkunsttreff[$hitcounter]['bilde'], 5);
 		}
 	}
-	$baerumkunsttreff[$hitcounter]['url'] = $baerumkunsttreff[$hitcounter]['bilde'];
+
+	// URL
+	$baerumkunsttreff[$hitcounter]['url'] = $domain . "/cgi-bin/websok-kunst?tnr=" . trim($baerumkunsttreff[$hitcounter]['id']);
 
 	// Tittel, ev. med årstall i 260
 	if ($record->getField("245")) {

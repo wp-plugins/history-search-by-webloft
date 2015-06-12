@@ -48,6 +48,7 @@ $journals = new File_MARCXML($newfile, File_MARC::SOURCE_STRING);
 $hitcounter = 0;
 
 /*
+ID
 slug
 url
 bilde
@@ -60,6 +61,12 @@ while ($record = $journals->next()) {
 
 $beskrivelse = '';
 
+	// ID
+	if ($record->getField("001")) {
+		$askerbildertreff[$hitcounter]['id'] = ($record->getField("001"));
+		$askerbildertreff[$hitcounter]['id'] = substr($askerbildertreff[$hitcounter]['id'] , 5);
+	}
+
 	// Slug
 	$askerbildertreff[$hitcounter]['slug'] = 'askerbilder';
 
@@ -70,7 +77,9 @@ $beskrivelse = '';
 			$askerbildertreff[$hitcounter]['bilde'] = $domain . substr($askerbildertreff[$hitcounter]['bilde'], 5); // fjerne feltkoden i 	starten
 		}
 	}
-	$askerbildertreff[$hitcounter]['url'] = $askerbildertreff[$hitcounter]['bilde'];
+
+	@$askerbildertreff[$hitcounter]['url'] = $domain . "/cgi-bin/websok-bilde?tnr=" . trim($askerbildertreff[$hitcounter]['id']);
+
 
 	// Tittel, ev. med årstall i 260
 	if ($record->getField("245")) {
