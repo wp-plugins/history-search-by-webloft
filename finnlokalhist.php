@@ -12,7 +12,7 @@
  * Plugin Name:       WL Kulturs&oslash;k
  * Plugin URI:        http://www.bibvenn.no/
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical material (books, images, video, audio...)
- * Version:           2.0
+ * Version:           2.0.1
  * Author:            H&aring;kon Sundaune / Bibliotekarens beste venn
  * Author URI:        http://www.bibvenn.no/
  * Text Domain:       wl-kultursok-locale
@@ -36,9 +36,19 @@ if ( ! defined( 'WPINC' ) ) {
      * Add stylesheet to the page
      */
     function finnlokalhistorie_safely_add_stylesheets_and_scripts() {
-        wp_enqueue_style( 'finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
-		wp_enqueue_script('finnlokalhist-accordion', plugins_url( 'js/accordion.js', __FILE__ ), array('jquery') );
-		wp_enqueue_script('finnlokalhist-accordion-init', plugins_url( 'js/accordion_init.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-public', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
+		$visning = get_option('lokalhist_option_visning', 'trekkspill');
+	    wp_enqueue_style( 'finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
+		if ($visning == "trekkspill") {
+			wp_enqueue_script('finnlokalhist-accordion', plugins_url( 'js/accordion.js', __FILE__ ), array('jquery') );
+			wp_enqueue_script('finnlokalhist-accordion-init', plugins_url( 'js/accordion_init.js', __FILE__ ), array('jquery') );
+		}
+
+		if ($visning == "flislagt") {
+			wp_enqueue_script('finnlokalhist-masonry', plugins_url( 'js/masonry.pkgd.min.js', __FILE__ ), array('jquery') );
+			wp_enqueue_script('finnlokalhist-masonry-imagesload', plugins_url( 'js/imagesloaded.pkgd.min.js', __FILE__ ), array('jquery') );
+			wp_enqueue_script('finnlokalhist-masonry-init', plugins_url( 'js/masonry-init.js', __FILE__ ), array('jquery') );
+		}
     }
 
 // FIRST COMES THE SHORTCODE... EH, CODE!
@@ -60,13 +70,14 @@ if ((isset($_REQUEST['lokalhistquery'])) && (trim($_REQUEST['lokalhistquery']) !
 	$querystring = '';
 }
 
-$oldargs = stristr (get_permalink ($post->id) , "?"); // alt etter ? er query vars
+@$oldargs = stristr (get_permalink ($post->id) , "?"); // alt etter ? er query vars
 $oldargs = str_replace ("?" , "" , $oldargs);
 $oldargs = wp_parse_args ($oldargs);
 
-$formaction = stristr (get_permalink ($post->id) , "?" , TRUE); // alt FØR ? er basis
+@$formaction = stristr (get_permalink ($post->id) , "?" , TRUE); // alt FØR ? er basis
 $formaction = str_replace ("?" , "" , $formaction);
 
+$htmlout = '';
 $htmlout .= '<div class="lokalhistorie_skjema" style="width: ' . $width . '">';
 $htmlout .= '<form method="GET" action="' . $formaction . '">';
 
@@ -115,9 +126,11 @@ function lokalhist_setuppage() {
 function lokalhist_registersettings() {
     // Add options to database if they don't already exist
     add_option("lokalhist_option_baser", "", "", "yes");
+    add_option("lokalhist_option_visning", "trekkspill", "", "yes");
 
     // Register settings that this form is allowed to update
     register_setting('lokalhist_options', 'lokalhist_option_baser');
+    register_setting('lokalhist_options', 'lokalhist_option_visning');
 }
 
 function lokalhist_settings_page() {
