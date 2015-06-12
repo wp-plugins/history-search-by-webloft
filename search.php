@@ -3,11 +3,11 @@
 //$lokalhist_debug = "1"; 
 
 // turn on for debug
-/*
+
 ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
-*/
+
 
 require_once("includes/functions.php"); // funksjoner vi har bruk for
 
@@ -70,33 +70,31 @@ $lokalhistbaser = get_option('lokalhist_option_baser' , '');
 
 // Så søker vi i de basene som er angitt i innstillingene
 
-if ($lokalhistbaser != '') {
-	foreach ($lokalhistbaser as $enbase) { 
-		include ('basesok/' . $enbase . '.php');
-	}
-
-	// Gjøre om alt til rene strenger (fra XML og sånt)
-	
-	function tilstreng(&$item){
-	   $item= (string) $item;
-	}
-	
-	array_walk_recursive($treff,'tilstreng');
-	
-	// FERDIG MED Å SØKE - SKRIVE UT RESULTATER
-	
-	// array tvinger type array, ellers vil den feile hvis en av arrayene er tomme
-	//$treffliste = @array_merge ((array) $norvegianatreff , (array) $lokalhistoriewikitreff , (array) $bildertreff , (array) $bokhyllatreff);
-	
-	// array_filter uten argumenter fjerner tomme elementer
-	$treff = array_filter( $treff );
-
-$visning = get_option('lokalhist_option_visning', 'trekkspill');
-	include ('includes/vistreff-' . $visning . '.php');
-
-} else { // ops, ingen baser valgt
-	echo "<i>Du m&aring; velge noen s&oslash;kekilder i innstillingene f&oslash;r du kan f&aring; noen treff!</i>";
+foreach ($lokalhistbaser as $enbase) { 
+	$temp = explode("|x|" , $enbase);
+	$slug = $temp[0];
+	include ('basesok/' . $slug . '.php');
 }
+
+// Gjøre om alt til rene strenger (fra XML og sånt)
+
+function tilstreng(&$item){
+   $item= (string) $item;
+}
+
+array_walk_recursive($treff,'tilstreng');
+
+
+// FERDIG MED Å SØKE - SKRIVE UT RESULTATER
+
+// array tvinger type array, ellers vil den feile hvis en av arrayene er tomme
+//$treffliste = @array_merge ((array) $norvegianatreff , (array) $lokalhistoriewikitreff , (array) $bildertreff , (array) $bokhyllatreff);
+
+// array_filter uten argumenter fjerner tomme elementer
+$treff = array_filter( $treff );
+
+include ('includes/vistreff.php');
+
 ?>
 
 
