@@ -16,15 +16,10 @@ require_once("includes/functions.php"); // funksjoner vi har bruk for
 $treff = '';
 $tittel = '';
 $forfatter = '';
-$bokhyllahtml = '';
-$bokhyllatreff = '';
-$bildertreff = '';
-$nbbilderhtml = '';
-$stedsinfo = '';
-$lokalhistoriewikihtml = '';
-$norvegianahtml = '';
-$norvegianatreff = '';
 $dc = '';
+
+$baser = esc_attr($_REQUEST['baser']);
+$visning = esc_attr($_REQUEST['visning']);
 
 // Twitter- og Facebookikoner og andre bilder
 
@@ -32,16 +27,6 @@ $litentwitt = plugins_url ('g/twitter.png' , __FILE__);
 $litenface = plugins_url ('g/fb.png' , __FILE__);
 $generiskomslag = plugins_url ('g/ikke_digital.jpg' , __FILE__);
 $lokalhistoriewikiomslag = plugins_url ('g/lokalhistoriewiki.jpg' , __FILE__);
-
-// INNSTILLINGER
-
-$makstreff = $lokalhistmakstreff; // hvor mange treff henter vi maks fra hvert sted? Definert i shortcode
-if ($makstreff > 100) { // 100 er maks for noen av basene
-$makstreff = 100;
-}
-
-$bokhyllaft = 'false'; // fulltekstsøk i Bokhylla? (gir myriader av treff)
-$bilderft = 'true'; // fulltekstsøk i bilder? Kan like gjerne stå på
 
 // vi trenger funksjoner
 require_once ('includes/functions.php');
@@ -66,12 +51,13 @@ $singlehtml .= "<br style=\"clear: both;\">";
 $singlehtml .= "</div>\n\n";
 
 
-$lokalhistbaser = get_option('lokalhist_option_baser' , '');
+
 
 // Så søker vi i de basene som er angitt i innstillingene
 
-if ($lokalhistbaser != '') {
-	foreach ($lokalhistbaser as $enbase) { 
+if ($baser != '') {
+	$splittbaser = explode ("," , $baser);
+	foreach ($splittbaser as $enbase) { 
 		include ('basesok/' . $enbase . '.php');
 	}
 
@@ -91,7 +77,9 @@ if ($lokalhistbaser != '') {
 	// array_filter uten argumenter fjerner tomme elementer
 	$treff = array_filter( $treff );
 
-$visning = get_option('lokalhist_option_visning', 'trekkspill');
+	// Hey, hva med å stokke om på alle treffene?
+	shuffle ($treff);
+
 	include ('includes/vistreff-' . $visning . '.php');
 
 } else { // ops, ingen baser valgt

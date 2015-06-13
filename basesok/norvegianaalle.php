@@ -108,7 +108,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 				$norvegianaalletreff[$teller]['tittel'] = htmlspecialchars($delving->title);
 			}	
 			$norvegianaalletreff[$teller]['bilde'] = $delving->thumbnail;
-			$norvegianaalletreff[$teller]['kilde'] = "Norvegiana";
+			$norvegianaalletreff[$teller]['kilde'] = "Norvegiana (alle)";
 			$norvegianaalletreff[$teller]['slug'] = 'norvegianaalle';
 	
 			$teller++;

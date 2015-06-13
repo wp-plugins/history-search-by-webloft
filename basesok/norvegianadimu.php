@@ -78,7 +78,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			}
 			$stedet = @implode (", " , $stedsinfo);
 			if (trim($stedet) != "") {
-				$stedet = "<br><i>Sted: </i>" . $stedet;
+				$stedet = "<br><strong>Sted: </strong>" . $stedet;
 			}
 
 			$norvegianadimutreff[$teller]['url'] = $delving->landingPage;
@@ -107,7 +107,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			$norvegianadimutreff[$teller]['bilde'] = $delving->thumbnail;
 			$norvegianadimutreff[$teller]['kilde'] = "Norvegiana (Digitalt Museum)";
 			$norvegianadimutreff[$teller]['slug'] = 'norvegianadimu';
-	
+
 			$teller++;
 			
 		}

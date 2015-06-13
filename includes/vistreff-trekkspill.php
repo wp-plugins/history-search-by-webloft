@@ -71,7 +71,8 @@ foreach ($treff as $enkelttreff) {
 
 <?php
 require_once ("basenavn.php");
-foreach ($lokalhistbaser as $enbase) { 
+$splittbaser = (array) explode ("," , $baser);
+foreach ($splittbaser as $enbase) { 
 	$slug = $enbase;
 	$navn = slugtilbase($enbase, $basenavn);
 	?>

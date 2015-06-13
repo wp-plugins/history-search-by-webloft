@@ -12,7 +12,7 @@
  * Plugin Name:       WL Kulturs&oslash;k
  * Plugin URI:        http://www.bibvenn.no/
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical material (books, images, video, audio...)
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            H&aring;kon Sundaune / Bibliotekarens beste venn
  * Author URI:        http://www.bibvenn.no/
  * Text Domain:       wl-kultursok-locale
@@ -30,25 +30,27 @@ if ( ! defined( 'WPINC' ) ) {
 // INCLUDE NECESSARY  
     
     add_action( 'wp_enqueue_scripts', 'finnlokalhistorie_safely_add_stylesheets_and_scripts' );
+    add_action( 'admin_enqueue_scripts', 'finnlokalhistorie_admin_styles_and_scripts' );
+
 	require_once("includes/functions.php"); // funksjoner vi har bruk for
 
     /**
-     * Add stylesheet to the page
+     * Add stylesheets and script to the page
      */
+
+	function finnlokalhistorie_admin_styles_and_scripts() {
+		wp_enqueue_script('finnlokalhist-public', plugins_url( 'js/admin.js', __FILE__ ), array('jquery') );
+	    wp_enqueue_style ('finnlokalhistorie-admin-style', plugins_url('/css/admin.css', __FILE__) );
+	}
+
     function finnlokalhistorie_safely_add_stylesheets_and_scripts() {
 		wp_enqueue_script('finnlokalhist-public', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
-		$visning = get_option('lokalhist_option_visning', 'trekkspill');
-	    wp_enqueue_style( 'finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
-		if ($visning == "trekkspill") {
-			wp_enqueue_script('finnlokalhist-accordion', plugins_url( 'js/accordion.js', __FILE__ ), array('jquery') );
-			wp_enqueue_script('finnlokalhist-accordion-init', plugins_url( 'js/accordion_init.js', __FILE__ ), array('jquery') );
-		}
-
-		if ($visning == "flislagt") {
-			wp_enqueue_script('finnlokalhist-masonry', plugins_url( 'js/masonry.pkgd.min.js', __FILE__ ), array('jquery') );
-			wp_enqueue_script('finnlokalhist-masonry-imagesload', plugins_url( 'js/imagesloaded.pkgd.min.js', __FILE__ ), array('jquery') );
-			wp_enqueue_script('finnlokalhist-masonry-init', plugins_url( 'js/masonry-init.js', __FILE__ ), array('jquery') );
-		}
+	    wp_enqueue_style ('finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
+		wp_enqueue_script('finnlokalhist-accordion', plugins_url( 'js/accordion.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-accordion-init', plugins_url( 'js/accordion_init.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-masonry', plugins_url( 'js/masonry.pkgd.min.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-masonry-imagesload', plugins_url( 'js/imagesloaded.pkgd.min.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-masonry-init', plugins_url( 'js/masonry-init.js', __FILE__ ), array('jquery') );
     }
 
 // FIRST COMES THE SHORTCODE... EH, CODE!
@@ -56,8 +58,14 @@ if ( ! defined( 'WPINC' ) ) {
 function finnlokalhistorie_func ($atts){
 
 extract(shortcode_atts(array(
-	'makstreff' => "25"
+	'makstreff' => "25",
+	'visning' => "trekkspill",
+	'baser' => "bokhylla"
    ), $atts));
+
+if ($makstreff > 100) { // 100 er maks for noen av basene
+$makstreff = 100;
+}
 
 // DEFINE HTML TO OUTPUT WHEN SHORTCODE IS FOUND 
 
@@ -78,11 +86,14 @@ $oldargs = wp_parse_args ($oldargs);
 $formaction = str_replace ("?" , "" , $formaction);
 
 $htmlout = '';
-$htmlout .= '<div class="lokalhistorie_skjema" style="width: ' . $width . '">';
+$htmlout .= '<div class="lokalhistorie_skjema">';
 $htmlout .= '<form method="GET" action="' . $formaction . '">';
 
 $htmlout .= '<input type="text" name="lokalhistquery" value="' . $querystring . '" placeholder="S&oslash;k etter..." />';
 $htmlout .= '<input type="submit" value="S&oslash;k">';
+$htmlout .= '<input type="hidden" name="baser" value="' . esc_attr($baser) . '">' . "\n";
+$htmlout .= '<input type="hidden" name="makstreff" value="' . (int) ($makstreff) . '">' . "\n";
+$htmlout .= '<input type="hidden" name="visning" value="' . esc_attr($visning) . '">' . "\n";
 
 // Legge til de som finnes fra før
 foreach ($oldargs as $key => $value) {
@@ -117,25 +128,25 @@ add_shortcode("wl-kultursok", "finnlokalhistorie_func");
 // Settings page
 
 add_action('admin_menu', 'lokalhist_setuppage');
-add_action('admin_init', 'lokalhist_registersettings');
+//add_action('admin_init', 'lokalhist_registersettings');
 
 function lokalhist_setuppage() {
-    add_options_page("WL Kulturs&oslash;k", "WL Kulturs&oslash;k", "manage_options", "lokalhist_options", "lokalhist_settings_page");
+    add_submenu_page("tools.php", "WL Kulturs&oslash;k", "WL Kulturs&oslash;k shortcode", "edit_posts", "lokalhist_options", "lokalhist_settings_page");
 }
 
 function lokalhist_registersettings() {
-    // Add options to database if they don't already exist
-    add_option("lokalhist_option_baser", "", "", "yes");
-    add_option("lokalhist_option_visning", "trekkspill", "", "yes");
+    // Add options to database if they don't already exist - NO OPTIONS AS OF NOW
+    //add_option("lokalhist_option_baser", "", "", "yes");
 
-    // Register settings that this form is allowed to update
-    register_setting('lokalhist_options', 'lokalhist_option_baser');
-    register_setting('lokalhist_options', 'lokalhist_option_visning');
+
+    // Register settings that this form is allowed to update - NO OPTIONS
+    //register_setting('lokalhist_options', 'lokalhist_option_baser');
+    //register_setting('lokalhist_options', 'lokalhist_option_visning');
 }
 
 function lokalhist_settings_page() {
-    if (!current_user_can('manage_options'))
-        wp_die(__("You don't have access to this page"));
+    if (!current_user_can('edit_posts'))
+        wp_die(__("Du har ikke tilgang til denne siden"));
 	require dirname(__FILE__) . '/includes/settings.php';
 }
 

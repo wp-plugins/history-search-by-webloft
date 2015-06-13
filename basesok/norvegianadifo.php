@@ -79,7 +79,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			}
 			$stedet = @implode (", " , $stedsinfo);
 			if (trim($stedet) != "") {
-				$stedet = "<br><i>Sted: </i>" . $stedet;
+				$stedet = "<br><strong>Sted: </strong>" . $stedet;
 			}
 
 			$norvegianadifotreff[$teller]['url'] = $delving->landingPage;
@@ -94,7 +94,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			$norvegianadifotreff[$teller]['beskrivelse'] .= $stedet;
 			if ((isset($mindato)) && ($mindato != "")) {
-				$norvegianadifotreff[$teller]['beskrivelse'] .= "<br /><i>Datering: </i>" . $mindato;
+				$norvegianadifotreff[$teller]['beskrivelse'] .= "<br /><strong>Datering: </strong>" . $mindato;
 			}
 
 			if (isset($dc->title)) {

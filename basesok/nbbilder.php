@@ -2,7 +2,7 @@
 
 // Søker i Nasjonalbibliotekets bilder og legger til treff i $treffliste
 
-$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:Bilder&fq=contentClasses:public&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=" . $bilderft;
+$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:Bilder&fq=contentClasses:public&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=true";
 
 $rawurl = str_replace ("<!QUERY!>" , $search_string , $rawurl); // sette inn søketerm
 $antalltreff['nbbilder'] = ''; // nullstiller i tilfelle søket feiler

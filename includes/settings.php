@@ -1,34 +1,37 @@
 <?php
 
-$lokalhistbaser = (array) get_option('lokalhist_option_baser' , '');
+// Standardverdier
 
-$visning = get_option('lokalhist_option_visning' , 'trekkspill');
+$baser = ""; 
+$makstreff = "";
+$visning = "";
 
 ?>
 <div class="wrap">
 
-    <h1>WL Kultursøk - innstillinger</h1>
+    <h1>WL Kultursøk - lag din egen shortcode</h1>
 
-    <form method="post" action="options.php">
+	<p>På denne siden kan du gjøre alle valgene for hvordan søket skal se ut på siden din. Nå du lagrer disse valgene ved å klikke på knappen nederst på siden, blir feltet med kortkoden (shortcode) oppdatert. Denne kan du så kopiere og lime inn i et innlegg eller på en side.
+	</p>
 
-        <?php settings_fields('lokalhist_options'); ?>
+    <form action="#" id="shortcodeform">
 
         <h3>Baser å ha med</h3>
 
         <p>
-
 		<?php
+		echo '<table border="1">' . "\n";
 		require_once ("basenavn.php");
 		foreach ($basenavn as $enbase) {
 			$splitt = explode ("|x|" , $enbase);
 			echo $splitt[1] . "&nbsp";
-			echo '<input name="lokalhist_option_baser[]" type="checkbox" value="' . $splitt[0] . '"';
-			if (in_array($splitt[0] , $lokalhistbaser)) { echo "checked";}
-			echo " />";
+			echo '<input name="baser[]" type="checkbox" value="' . $splitt[0] . '" />';
 			merbaseinfo ($splitt[2]);
 			echo "<br>\n\n";
 		}
+		echo "</table>";
 
+		
 /*
 
     Artsdatabanken - IKKE FORELØPIG
@@ -43,31 +46,35 @@ $visning = get_option('lokalhist_option_visning' , 'trekkspill');
 ?>
 
 		</p>
-<!--
+
 		<h3>Utseende</h3>
 		<p>
 
-		<label for="lokalhist_option_visning">Hvordan skal vi vise trefflisten?</label>&nbsp;
-		<select name="lokalhist_option_visning">
-		<option value="trekkspill" <?php if ($visning == 'trekkspill') { echo "selected"; } ?>>Trekkspill</option>
-		<option value="enkelliste" <?php if ($visning == 'enkelliste') { echo "selected"; } ?>>(Enkel liste)</option>
-		<option value="flislagt" <?php if ($visning == 'flislagt') { echo "selected"; } ?>>Flislagt</option>
-		<option value="slideshow" <?php if ($visning == 'slideshow') { echo "selected"; } ?>>(Slideshow)</option>
-		<option value="rss" <?php if ($visning == 'rss') { echo "selected"; } ?>>(RSS)</option>
-		
+		<label for="visning">Hvordan skal vi vise trefflisten?</label>&nbsp;
+		<select name="visning">
+		<option value="trekkspill" selected>Trekkspill</option>
+<!--	<option value="enkelliste">(Enkel liste)</option>-->
+		<option value="flislagt">Flislagt</option>
+<!--	<option value="slideshow">(Slideshow)</option>-->
+<!--	<option value="rss">(RSS)</option>-->
 		</select>
-		<br><br><i>Valgene i parentes er ikke implementert ennå...</i>
+		<br>
+
+		<label for="makstreff">Hvor mange treff skal vi maksimalt hente fra hver base?</label>&nbsp;
+		<select name="makstreff">
+		<option value="5">5</option>
+		<option value="10">10</option>
+		<option value="15" selected>15</option>
+		<option value="20">20</option>
+		<option value="25">25</option>
+		</select>
+	
+	    </form>
+
 		</p>
 
-		<h3>Shortcode</h3>
-		<p>
-		<i>(Oppdateres når du lagrer innstillingene)</i><br><br>
-		<strong>[wl-kultursok baser="<?= implode("," , $lokalhistbaser) ?>" visning="<?= $visning ?>"]</strong>
-		</p>
--->
-        <p class="submit">
-            <input type="submit" class="button-primary" value="Oppdat&eacute;r" />
-        </p>
+		<h3>Shortcode til å lime inn i innlegg eller på sider</h3>
 
-    </form>
+		<div id="ferdigshortcode"></div>
+		
 </div>

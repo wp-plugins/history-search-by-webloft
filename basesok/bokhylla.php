@@ -2,7 +2,7 @@
 
 // Søker i bokhylla emne lokalhistorie og legger til treff i $treffliste
 
-$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:(" . utf8_decode("Bøker") . ")&fq=contentClasses:(bokhylla%20OR%20public)&fq=subject:lokalhistorie&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=" . $bokhyllaft;
+$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:(" . utf8_decode("Bøker") . ")&fq=contentClasses:(bokhylla%20OR%20public)&fq=subject:lokalhistorie&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=false";
 
 $rawurl = str_replace ("<!QUERY!>" , $search_string , $rawurl); // sette inn søketerm
 $antalltreff['bokhylla'] = ''; // nullstiller i tilfelle søket feiler

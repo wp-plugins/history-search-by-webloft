@@ -1,5 +1,9 @@
+strong {
+	font-weight: bold;
+	}
+
 .lokalhistorie_skjema {
-	width: 100%;
+	width: 98%;
 	margin: 20px 0px;
 	clear: both;
 	}
@@ -100,10 +104,10 @@ td.lokalhisttd h4 {
 /* MASONRY (flislagt visning) */
 
 #gridcontainer .grid-item { 
-	width: 33%;
+	width: 32%;
 	min-width: 200px;
 	max-width: 300px;
-	margin-bottom: 0px;
+	margin-bottom: 5px;
 }
 
 #gridcontainer .grid-item a, a:visited, a:active, a:hover { 
@@ -122,12 +126,12 @@ td.lokalhisttd h4 {
 	top: 0px;
 	width: 94%;
 	height: 100%;
-	line-height: 1em;
+	overflow: auto;
+	line-height: 1.1em;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 	font-weight: 300;
-	font-size: 1.1em;
+	font-size: 0.9em;
 	opacity: 0;
-	letter-spacing: -1px;
 	background-color: #fff;
 	padding: 10px 3% 0px 3%;	
 }
@@ -142,3 +146,4 @@ td.lokalhisttd h4 {
 	font-size: 1.2em;
 	line-height: 1.1em;
 }
+

@@ -1,101 +1,51 @@
 <?php
 
-// Viser treffliste
+// Viser treffliste SOM ENKEL LISTE
 $treffliste = '';
 $treffhtml = '';
 
-echo "<!--\n";
-echo "/***********************************************\n";
-echo "* Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)\n";
-echo "* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts\n";
-echo "* This notice must stay intact for legal use\n";
-echo "***********************************************/\n";
-echo "-->\n";
+require_once ('basenavn.php');
 
-// HVERT TREFF: slug, url, bilde, tittel, ansvar, beskrivelse
+// HVERT TREFF: slug, url, bilde, tittel, ansvar, beskrivelse, basenavn
 
-// MAL FOR HVERT TREFF: classString , urlString , omslagString, titleString, descriptionString, urltwitString, twitterdescriptionString, gotournString
+// MAL FOR HVERT TREFF: classString , urlString , omslagString, titleString, descriptionString, urltwitString, twitterdescriptionString, gotournString, basenavnString
 
-$singlehtml = '';
-$singlehtml .= "<tr class=\"lokalhistrow classString\">\n";
+$pendel = 0;
+//array ($row) = ('odd' , 'even');
 
-$singlehtml .= "<td class=\"lokalhisttd\" style=\"width: 40%;\">\n";
-$singlehtml .= "<a href=\"urlString\" target=\"_blank\">";
-$singlehtml .= "<img class=\"lokalhistorieresultcover\" src=\"omslagString\" alt=\"illustrasjonsbilde\" />\n";
-$singlehtml .= "</a><br>" . "\n";
-$singlehtml .= '<a target="_blank" href="https://twitter.com/intent/tweet?url=urltwitString&via=bibvenn&text=twitterString&related=bibvenn,sundaune&lang=no"><img style="width: 20px; height: 20px;" src="' . $litentwitt . '" alt="Twitter-deling" /></a>&nbsp;' . "\n";
-$singlehtml .= "<a target=\"_self\" href=\"javascript:fbShare('gotournString', 700, 350)\"><img style=\"width: 50px; height: 21px;\" src=\"" . $litenface . "\" alt=\"Facebook-deling\" /></a>" . "\n";
-$singlehtml .= "</td>" . "\n";
-
-$singlehtml .= "<td class=\"lokalhisttd\">\n";
-$singlehtml .= "<a href=\"urlString\" target=\"_blank\">" . "\n";
-$singlehtml .= "<h3>titleString</h3>\n";
-$singlehtml .= "</a>\n";
-$singlehtml .= "ansvarString" . "\n";
-$singlehtml .= "<div class=\"lokalhistorieresultdescription\">descriptionString</div><br />\n";
-$singlehtml .= "</td>\n";
-$singlehtml .= "</tr>\n\n";
+$singlehtml = '<div class="row' . $row[$pendel] . '">' . "\n";
+$singlehtml .= '<a target="_blank" href="urlString">' . "\n";
+$singlehtml .= "<strong>titleString</strong>&nbsp;:&nbsp; ";
+$singlehtml .= "descriptionString. ";
+$singlehtml .= "<i>Kilde: </i>basenavnString\n";
+$singlehtml .= '</a>' . "\n";
+$singlehtml .= '</div>' . "\n";
 
 foreach ($treff as $enkelttreff) {
+	$pendel = (1 - $pendel);
 	$thisslug = $enkelttreff['slug'];
-	@$outhtml = str_replace ("classString" , $enkelttreff['slug'] , $singlehtml);
+
 	@$outhtml = str_replace ("urlString" , $enkelttreff['url'] , $outhtml);
-	@$outhtml = str_replace ("omslagString" , $enkelttreff['bilde'] , $outhtml);
 	@$outhtml = str_replace ("titleString" , $enkelttreff['tittel'] , $outhtml);
-	if ((isset($enkelttreff['ansvar'])) && ($enkelttreff['ansvar'] != '')) {
-		$outhtml = str_replace ("ansvarString" , "<h4>" . $enkelttreff['ansvar'] . "</h4>", $outhtml);
-	} else {
-		$outhtml = str_replace ("ansvarString" , '' , $outhtml);
-	}
-	$outhtml = str_replace ("descriptionString" , trunc($enkelttreff['beskrivelse'] , 100) , $outhtml);
-	$outhtml = str_replace ("urltwitString" , urlencode($enkelttreff['url']) , $outhtml);
-
-	$twitter = $enkelttreff['tittel'];
-	if ((isset($enkelttreff['ansvar'])) && ($enkelttreff['ansvar'] != '')) {
-		$twitter .= " - " . $enkelttreff['ansvar'];
-	}
-	$twitter = preg_replace('/[ \t]+/', ' ', preg_replace('/[\r\n]+/', "\n", $twitter)); //
-	$twitter = str_replace ("<br>" , " " , $twitter);
-	$twitter = strip_tags ($twitter);
-
-	$outhtml = str_replace ("twitterString" , htmlspecialchars($twitter) , $outhtml);
+	@$outhtml = str_replace ("descriptionString" , trunc($enkelttreff['beskrivelse'], 30) , $outhtml);
+	@$outhtml = str_replace ("basenavnString" , $enkelttreff['kilde'] , $outhtml);
 	
 	// Ferdig med å lage HTML for ett treff - legger dette til riktig treffliste
-	@$treffhtml[$thisslug] .= $outhtml;
+	
+	@$treffhtml .= $outhtml;
 
 }
 
 ?>
 
-<div class="resultatliste">
+<div id="gridcontainer">
+<div class="grid">
 
-<?php
-foreach ($lokalhistbaser as $enbase) { 
-	$temp = explode("|x|" , $enbase);
-	$slug = $temp[0];
-	$navn = $temp[1];
-	?>
-
-	<div class="resultatheader">
-		<?php echo $navn;?> (<?php echo (int) $antalltreff[$slug]; ?> treff)
-	</div>
-	<div class="trekkspillseksjon">
-		<?php
-		if (!empty($treffhtml[$slug])) {
-			echo "<table>\n";
-			echo $treffhtml[$slug];
-			echo "</table>\n";
-		} 
-		?>
-		<br style="clear: both;">
-	</div>
-
-<?php
-}
-?>
+<?= $treffhtml ?>
 
 </div>
-
+</div>
 
 </body>
 </html>
+

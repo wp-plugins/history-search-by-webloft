@@ -1,0 +1,9 @@
+#ferdigshortcode {
+	border-radius: 15px;
+	background-color: #ddf;
+	width: 95%;
+	padding: 10px;
+	font-size: 1.4em;
+	font-weight: lighter;
+	display: none;
+}

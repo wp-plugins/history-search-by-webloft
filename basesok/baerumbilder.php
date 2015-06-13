@@ -64,8 +64,9 @@ $beskrivelse = '';
 		$baerumbildertreff[$hitcounter]['id'] = substr($baerumbildertreff[$hitcounter]['id'] , 5);
 	}
 
-	// Slug
+	// Slug og navn
 	$baerumbildertreff[$hitcounter]['slug'] = 'baerumbilder';
+	$baerumbildertreff[$hitcounter]['kilde'] = "Bærum biblioteks bildebase";
 
 	// URL og bilde er det samme
 	if ($record->getField("856")) {

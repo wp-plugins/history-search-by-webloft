@@ -69,6 +69,7 @@ $beskrivelse = '';
 
 	// Slug
 	$askerbildertreff[$hitcounter]['slug'] = 'askerbilder';
+	$askerbildertreff[$hitcounter]['kilde'] = "Asker biblioteks bildebase";
 
 	// URL og bilde er det samme
 	if ($record->getField("856")) {

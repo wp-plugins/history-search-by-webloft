@@ -67,6 +67,7 @@ $beskrivelse = '';
 
 	// Slug
 	$baerumkunsttreff[$hitcounter]['slug'] = 'baerumkunst';
+	$baerumkunsttreff[$hitcounter]['kilde'] = "Bærum biblioteks kunstbase";
 
 	// URL og bilde er det samme
 	if ($record->getField("856")) {
