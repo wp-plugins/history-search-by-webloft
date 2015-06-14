@@ -53,10 +53,10 @@ $visning = "";
 		<label for="visning">Hvordan skal vi vise trefflisten?</label>&nbsp;
 		<select name="visning">
 		<option value="trekkspill" selected>Trekkspill</option>
-<!--	<option value="enkelliste">(Enkel liste)</option>-->
+		<option value="enkelliste">Enkel liste</option>
 		<option value="flislagt">Flislagt</option>
-<!--	<option value="slideshow">(Slideshow)</option>-->
-<!--	<option value="rss">(RSS)</option>-->
+		<option value="rss">RSS</option>
+<!--	<option value="slideshow">Slideshow</option>-->
 		</select>
 		<br>
 
@@ -68,6 +68,15 @@ $visning = "";
 		<option value="20">20</option>
 		<option value="25">25</option>
 		</select>
+		<br>
+
+		<label for="sortering">Hvordan skal vi sortere disse treffene?</label>&nbsp;
+		<select name="sortering">
+		<option value="base" selected>Etter kilde</option>
+		<option value="tittel">Etter tittel</option>
+		<option value="tilfeldig">Tilfeldig hver gang</option>
+		</select>
+		<br>
 	
 	    </form>
 

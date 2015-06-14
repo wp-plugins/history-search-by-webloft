@@ -5,15 +5,15 @@ $treffliste = '';
 $treffhtml = '';
 
 require_once ('basenavn.php');
-
+	
 // HVERT TREFF: slug, url, bilde, tittel, ansvar, beskrivelse, basenavn
 
 // MAL FOR HVERT TREFF: classString , urlString , omslagString, titleString, descriptionString, urltwitString, twitterdescriptionString, gotournString, basenavnString
 
 $pendel = 0;
-//array ($row) = ('odd' , 'even');
+$row = array('rowodd' , 'roweven');
 
-$singlehtml = '<div class="row' . $row[$pendel] . '">' . "\n";
+$singlehtml = '<div class="pendelString">' . "\n";
 $singlehtml .= '<a target="_blank" href="urlString">' . "\n";
 $singlehtml .= "<strong>titleString</strong>&nbsp;:&nbsp; ";
 $singlehtml .= "descriptionString. ";
@@ -25,9 +25,11 @@ foreach ($treff as $enkelttreff) {
 	$pendel = (1 - $pendel);
 	$thisslug = $enkelttreff['slug'];
 
-	@$outhtml = str_replace ("urlString" , $enkelttreff['url'] , $outhtml);
+	@$outhtml = str_replace ("urlString" , $enkelttreff['url'] , $singlehtml);
 	@$outhtml = str_replace ("titleString" , $enkelttreff['tittel'] , $outhtml);
-	@$outhtml = str_replace ("descriptionString" , trunc($enkelttreff['beskrivelse'], 30) , $outhtml);
+	@$outhtml = str_replace ("pendelString" , $row[$pendel] , $outhtml);
+
+	@$outhtml = str_replace ("descriptionString" , trunc(str_replace("<br>" , ".&nbsp;" , $enkelttreff['beskrivelse']), 30) , $outhtml);
 	@$outhtml = str_replace ("basenavnString" , $enkelttreff['kilde'] , $outhtml);
 	
 	// Ferdig med å lage HTML for ett treff - legger dette til riktig treffliste
@@ -39,11 +41,9 @@ foreach ($treff as $enkelttreff) {
 ?>
 
 <div id="gridcontainer">
-<div class="grid">
 
 <?= $treffhtml ?>
 
-</div>
 </div>
 
 </body>

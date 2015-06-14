@@ -10,8 +10,9 @@ var basene = jQuery.map(jQuery(':checkbox[name=baser\\[\\]]:checked'), function(
 
 var visning = jQuery('select[name="visning"]').val();
 var makstreff = jQuery('select[name="makstreff"]').val();
+var sortering = jQuery('select[name="sortering"]').val();
 
-jQuery("#ferdigshortcode").html('[wl-kultursok baser="' + basene + '" visning="' + visning + '" makstreff="' + makstreff + '"]');
+jQuery("#ferdigshortcode").html('[wl-kultursok baser="' + basene + '" visning="' + visning + '" makstreff="' + makstreff + '" sortering="' + sortering + '"]');
 
 document.getElementById('ferdigshortcode').style.display = "block";
 

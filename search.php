@@ -20,6 +20,7 @@ $dc = '';
 
 $baser = esc_attr($_REQUEST['baser']);
 $visning = esc_attr($_REQUEST['visning']);
+$sortering = esc_attr($_REQUEST['sortering']);
 
 // Twitter- og Facebookikoner og andre bilder
 
@@ -69,19 +70,46 @@ if ($baser != '') {
 	
 	array_walk_recursive($treff,'tilstreng');
 	
+	// HVILKEN SORTERING ER VALGT?
+
+	switch ($sortering) {
+		case "base":
+			 // Ingen ting, dette er standard
+			break;
+		case "tilfeldig":
+			shuffle ($treff);			
+			break;
+		case "tittel":
+			function sortByOption($a, $b) {
+				return strcmp($a['tittel'], $b['tittel']);
+			}
+			usort($treff, 'sortByOption');
+			break;
+	}
+
 	// FERDIG MED Å SØKE - SKRIVE UT RESULTATER
-	
-	// array tvinger type array, ellers vil den feile hvis en av arrayene er tomme
-	//$treffliste = @array_merge ((array) $norvegianatreff , (array) $lokalhistoriewikitreff , (array) $bildertreff , (array) $bokhyllatreff);
-	
+
 	// array_filter uten argumenter fjerner tomme elementer
 	$treff = array_filter( $treff );
 
-	// Hey, hva med å stokke om på alle treffene?
-	shuffle ($treff);
-
-	include ('includes/vistreff-' . $visning . '.php');
-
+	// Hvis ikke RSS så vis
+	if ($visning != 'rss') { // Visning er ikke RSS
+		include ('includes/vistreff-' . $visning . '.php');
+	} else { // visning er RSS
+		if ($_REQUEST['dorss'] == '1') { // og vi skal kjøre ut RSS
+			echo "HER ER RSS-EN DIN!!";
+		} else { // Vi skal bare vise lenke til RSS
+			$serverdel = plugins_url( 'search.php', __FILE__ ); // det er search.php
+			$argumenter = stristr ($_SERVER['REQUEST_URI'] , "?"); // alt etter ? er argumenter, må bli med videre
+			$direkterss = $serverdel . $argumenter . "&dorss=1"; // og legge til dette
+			echo '<br>' . "\n";
+			echo '<form method="POST" action="' . $direkterss . '">' . "\n";
+			echo '<input type="hidden" name="treffdata" value="' . base64_encode(serialize($treff)) . '" />' . "\n";
+			echo '<input type="submit" name="submit" value="Hent RSS" />' . "\n";
+			echo '</form>' . "\n\n";
+echo $direkterss;
+		}
+	}
 } else { // ops, ingen baser valgt
 	echo "<i>Du m&aring; velge noen s&oslash;kekilder i innstillingene f&oslash;r du kan f&aring; noen treff!</i>";
 }

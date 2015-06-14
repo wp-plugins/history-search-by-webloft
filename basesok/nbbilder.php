@@ -45,7 +45,12 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			}
 			
 			$nbbildertreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
-			$nbbildertreff[$teller]['tittel'] = $nb->mainentry;
+			if ((isset($nb->mainentry)) && ($nb->mainentry != '')) {
+				$nbbildertreff[$teller]['tittel'] = $nb->mainentry;
+			} else {
+				$nbbildertreff[$teller]['tittel'] = '(Uten tittel)';
+			}
+
 			if ((isset($nb->year)) && (trim($nb->year) != '')) {
 				$nbbildertreff[$teller]['utgitt'] = $nb->year;
 			}

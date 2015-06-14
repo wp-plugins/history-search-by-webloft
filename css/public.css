@@ -147,3 +147,20 @@ td.lokalhisttd h4 {
 	line-height: 1.1em;
 }
 
+.roweven {
+	background-color: #eee;
+	width: 96%;
+	padding: 10px 2%;
+	line-height: 1em;
+}
+
+.rowodd {
+	background-color: #ddd;
+	width: 96%;
+	padding: 10px 2%;
+	line-height: 1em;
+}
+
+.roweven a, .rowodd a {
+	text-decoration: none;
+}

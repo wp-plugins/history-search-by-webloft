@@ -113,9 +113,10 @@ NORWEGIAN:
 
 == Change log ==
 
-= 2.0.2 = 
+= 2.1 = 
 
-* New display mode for search results: Tiles
+* New display modes for search results: Tiles and simple list
+* Can now sort results by source, title or random order
 
 = 2.0.1 = 
 
@@ -163,9 +164,10 @@ Major rewrite.
 
 NORWEGIAN:
 
-= 2.0.2 = 
+= 2.1 = 
 
-* Ny visning av treffliste: Flislagt
+* Nye visninger av treffliste: Flislagt og enkel liste
+* Mulighet for å sortere treffliste etter base, etter tittel eller tilfeldig rekkefølge
 
 = 2.0.1 = 
 

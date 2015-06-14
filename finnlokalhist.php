@@ -12,7 +12,7 @@
  * Plugin Name:       WL Kulturs&oslash;k
  * Plugin URI:        http://www.bibvenn.no/
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical material (books, images, video, audio...)
- * Version:           2.0.2
+ * Version:           2.1
  * Author:            H&aring;kon Sundaune / Bibliotekarens beste venn
  * Author URI:        http://www.bibvenn.no/
  * Text Domain:       wl-kultursok-locale
@@ -60,7 +60,8 @@ function finnlokalhistorie_func ($atts){
 extract(shortcode_atts(array(
 	'makstreff' => "25",
 	'visning' => "trekkspill",
-	'baser' => "bokhylla"
+	'baser' => "bokhylla",
+	'sortering' => "base"
    ), $atts));
 
 if ($makstreff > 100) { // 100 er maks for noen av basene
@@ -69,7 +70,6 @@ $makstreff = 100;
 
 // DEFINE HTML TO OUTPUT WHEN SHORTCODE IS FOUND 
 
-$width = "98%"; // ikke lenger width som parameter
 $lokalhistmakstreff = (int) $makstreff;
 
 if ((isset($_REQUEST['lokalhistquery'])) && (trim($_REQUEST['lokalhistquery']) != '')) {
@@ -94,6 +94,7 @@ $htmlout .= '<input type="submit" value="S&oslash;k">';
 $htmlout .= '<input type="hidden" name="baser" value="' . esc_attr($baser) . '">' . "\n";
 $htmlout .= '<input type="hidden" name="makstreff" value="' . (int) ($makstreff) . '">' . "\n";
 $htmlout .= '<input type="hidden" name="visning" value="' . esc_attr($visning) . '">' . "\n";
+$htmlout .= '<input type="hidden" name="sortering" value="' . esc_attr($sortering) . '">' . "\n";
 
 // Legge til de som finnes fra før
 foreach ($oldargs as $key => $value) {
