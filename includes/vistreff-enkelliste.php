@@ -1,15 +1,11 @@
 <?php
-
+domp ($treff);
 // Viser treffliste SOM ENKEL LISTE
 $treffliste = '';
 $treffhtml = '';
 
 require_once ('basenavn.php');
 	
-// HVERT TREFF: slug, url, bilde, tittel, ansvar, beskrivelse, basenavn
-
-// MAL FOR HVERT TREFF: classString , urlString , omslagString, titleString, descriptionString, urltwitString, twitterdescriptionString, gotournString, basenavnString
-
 $pendel = 0;
 $row = array('rowodd' , 'roweven');
 
@@ -48,4 +44,3 @@ foreach ($treff as $enkelttreff) {
 
 </body>
 </html>
-

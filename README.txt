@@ -3,7 +3,7 @@ Contributors: sundaune
 Tags: Webekspertene, Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn, Bibliotekarens beste venn, kultur, kultursøk, norvegiana
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 2.0.2
+Stable tag: 2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -115,7 +115,9 @@ NORWEGIAN:
 
 = 2.1 = 
 
-* New display modes for search results: Tiles and simple list
+* New source: Local photo collections (Deichman)
+* Bugfix: Didn't display anything when no hits were found
+* New display modes for search results: Tiles, simple list and carousel view
 * Can now sort results by source, title or random order
 
 = 2.0.1 = 
@@ -166,7 +168,9 @@ NORWEGIAN:
 
 = 2.1 = 
 
-* Nye visninger av treffliste: Flislagt og enkel liste
+* Ny base: Lokalhistoriske bildebaser i Oslo (Deichman)
+* Bugfix: Ga ingen beskjed ved ingen treff
+* Nye visninger av treffliste: Flislagt, enkel liste og karusell
 * Mulighet for å sortere treffliste etter base, etter tittel eller tilfeldig rekkefølge
 
 = 2.0.1 = 

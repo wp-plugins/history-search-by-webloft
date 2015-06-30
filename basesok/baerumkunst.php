@@ -62,7 +62,13 @@ $beskrivelse = '';
 	// ID
 	if ($record->getField("001")) {
 		$baerumkunsttreff[$hitcounter]['id'] = ($record->getField("001"));
-		$baerumkunsttreff[$hitcounter]['id'] = substr($baerumkunsttreff[$hitcounter]['id'] , 5);
+		$baerumkunsttreff[$hitcounter]['id'] = trim(substr($baerumkunsttreff[$hitcounter]['id'] , 5));
+	}
+
+	// Digitalisert dato
+	if ($record->getField("008")) {
+		$baerumkunsttreff[$hitcounter]['digidato'] = ($record->getField("008"));
+		$baerumkunsttreff[$hitcounter]['digidato'] = trim(substr($baerumkunsttreff[$hitcounter]['digidato'] , 5));
 	}
 
 	// Slug
@@ -90,6 +96,7 @@ $beskrivelse = '';
 	if ($record->getField("260")) {
 		if ($record->getField("260")->getSubfield("c")) {
 			$baerumkunsttreff[$hitcounter]['tittel'] .= " (" . substr($record->getField("260")->getSubfield("c") , 5) . ")";
+			$baerumkunsttreff[$hitcounter]['dato'] = trim(substr($record->getField("260")->getSubfield("c") , 5));
 		}
 	}
 
@@ -139,6 +146,5 @@ $beskrivelse = '';
 } // SLUTT PÅ HVERT ENKELT TREFF
 
 $treff = @array_merge_recursive ((array) $baerumkunsttreff , (array) $treff);
-	
-?>
 
+// SLUTT

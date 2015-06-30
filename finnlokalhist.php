@@ -44,13 +44,20 @@ if ( ! defined( 'WPINC' ) ) {
 	}
 
     function finnlokalhistorie_safely_add_stylesheets_and_scripts() {
-		wp_enqueue_script('finnlokalhist-public', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
 	    wp_enqueue_style ('finnlokalhistorie-shortcode-style', plugins_url('/css/public.css', __FILE__) );
+	    wp_enqueue_style ('finnlokalhistorie-slick-style', plugins_url('/css/slick.css', __FILE__) );
+	    wp_enqueue_style ('finnlokalhistorie-slick-theme-style', plugins_url('/css/slick-theme.css', __FILE__) );
+		
+		wp_enqueue_script('finnlokalhist-public', plugins_url( 'js/public.js', __FILE__ ), array('jquery') );
 		wp_enqueue_script('finnlokalhist-accordion', plugins_url( 'js/accordion.js', __FILE__ ), array('jquery') );
 		wp_enqueue_script('finnlokalhist-accordion-init', plugins_url( 'js/accordion_init.js', __FILE__ ), array('jquery') );
 		wp_enqueue_script('finnlokalhist-masonry', plugins_url( 'js/masonry.pkgd.min.js', __FILE__ ), array('jquery') );
 		wp_enqueue_script('finnlokalhist-masonry-imagesload', plugins_url( 'js/imagesloaded.pkgd.min.js', __FILE__ ), array('jquery') );
 		wp_enqueue_script('finnlokalhist-masonry-init', plugins_url( 'js/masonry-init.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-slick', plugins_url( 'js/slick.min.js', __FILE__ ), array('jquery') );
+		wp_enqueue_script('finnlokalhist-slick-init', plugins_url( 'js/slick.js', __FILE__ ), array('jquery') );
+
+
     }
 
 // FIRST COMES THE SHORTCODE... EH, CODE!

@@ -14,6 +14,7 @@ $basenavn[] = "norvegianadimu|x|Norvegiana (Digitalt Museum)|x|https://digitaltm
 $basenavn[] = "baerumkunst|x|Bærum biblioteks kunstbase|x|http://bibliotek.baerum.kommune.no/Nyheter/Kunstsamling";
 $basenavn[] = "baerumbilder|x|Bærum biblioteks bildebase|x|http://bibliotek.baerum.kommune.no/lokalhistorie/Bilder-fra-Barum/Lokalhistoriske-bilder";
 $basenavn[] = "askerbilder|x|Asker biblioteks bildebase|x|http://www.askerbibliotek.no/askersamling/bilder";
+$basenavn[] = "omekadeichman|x|Lokalhistoriske bildebaser i Oslo (Deichman)|x|http://bildebaser.deichman.no/collections/browse";
 
 function basetilslug ($base, $basenavn) {
 	foreach ($basenavn as $enbase) {

@@ -45,11 +45,18 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			}
 			
 			$nbbildertreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
-			if ((isset($nb->mainentry)) && ($nb->mainentry != '')) {
-				$nbbildertreff[$teller]['tittel'] = $nb->mainentry;
+			if ((isset($nb->subjectname)) && ($nb->subjectname != '')) {
+				$nbbildertreff[$teller]['tittel'] = $nb->subjectname;
 			} else {
 				$nbbildertreff[$teller]['tittel'] = '(Uten tittel)';
 			}
+
+			if ((isset($nb->mainentry)) && ($nb->mainentry != '')) {
+				$nbbildertreff[$teller]['ansvar'] = $nb->mainentry;
+			} else {
+				$nbbildertreff[$teller]['ansvar'] = '(N.N.)';
+			}
+
 
 			if ((isset($nb->year)) && (trim($nb->year) != '')) {
 				$nbbildertreff[$teller]['utgitt'] = $nb->year;
@@ -78,4 +85,4 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 $treff = array_merge_recursive ((array) $nbbildertreff , (array) $treff);
 
-?>
+// SLUTT

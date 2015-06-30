@@ -48,23 +48,31 @@ $journals = new File_MARCXML($newfile, File_MARC::SOURCE_STRING);
 $hitcounter = 0;
 
 /*
-ID
-slug
-url
-bilde
-tittel
-ansvar
-beskrivelse
+- ID : unik ID
+- URL : For å lenke til objektet i kontekst
+- bilde (til illustrasjon, f.eks. omslagsbilde)
+- tittel
+- ansvar (forfatter, fotograf etc.)
+- beskrivelse (kan settes sammen av ymse)
+- digidato : Dato for digitalisering
+- dato : Opphavsdato
 */
+
 
 while ($record = $journals->next()) {
 
 $beskrivelse = '';
 
+	// Digitalisert dato
+	if ($record->getField("008")) {
+		$askerbildertreff[$hitcounter]['digidato'] = ($record->getField("008"));
+		$askerbildertreff[$hitcounter]['digidato'] = trim(substr($askerbildertreff[$hitcounter]['digidato'] , 5));
+	}
+
 	// ID
 	if ($record->getField("001")) {
 		$askerbildertreff[$hitcounter]['id'] = ($record->getField("001"));
-		$askerbildertreff[$hitcounter]['id'] = substr($askerbildertreff[$hitcounter]['id'] , 5);
+		$askerbildertreff[$hitcounter]['id'] = trim(substr($askerbildertreff[$hitcounter]['id'] , 5));
 	}
 
 	// Slug
@@ -89,9 +97,12 @@ $beskrivelse = '';
 			$askerbildertreff[$hitcounter]['tittel'] = substr($askerbildertreff[$hitcounter]['tittel'], 5); // fjerne feltkoden i starten
 		}
 	}
-	if ($record->getField("260")) {
+
+	if ($record->getField("260")) { // opphavsdato: sist i tittelen OG til eget felt
 		if ($record->getField("260")->getSubfield("c")) {
 			$askerbildertreff[$hitcounter]['tittel'] .= " (" . substr($record->getField("260")->getSubfield("c") , 5) . ")";
+			$askerbildertreff[$hitcounter]['dato'] = trim(substr($record->getField("260")->getSubfield("c") , 5));
+			$askerbildertreff[$hitcounter]['dato'] = trim(str_replace ("ca." , "" , $askerbildertreff[$hitcounter]['dato']));
 		}
 	}
 
@@ -184,6 +195,5 @@ $beskrivelse = '';
 } // SLUTT PÅ HVERT ENKELT TREFF
 
 $treff = array_merge_recursive ((array) $askerbildertreff , (array) $treff);
-	
-?>
 
+// SLUTT

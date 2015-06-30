@@ -1,12 +1,27 @@
 <?php
 
-// Søker i bokhylla emne lokalhistorie og legger til treff i $treffliste
+// Søker i lokalhistoriske bildebaser til Deichman og legger til treff i $treffliste
 
-$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:(" . utf8_decode("Bøker") . ")&fq=contentClasses:(bokhylla%20OR%20public)&fq=subject:lokalhistorie&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=false";
+// URL: http://bildebaser.deichman.no/items/browse?output=rss2
+// http://gastonlibrary.org/omeka/items/browse
 
+//$rawurl = "http://www.nb.no/services/search/v2/search?q=<!QUERY!>&fq=mediatype:(" . utf8_decode("Bøker") . ")&fq=contentClasses:(bokhylla%20OR%20public)&fq=subject:lokalhistorie&fq=digital:Ja&itemsPerPage=" . $makstreff . "&ft=false";
+
+// Finne antall først
+
+$rawurl = "http://bildebaser.deichman.no/items/browse?search=<!QUERY!>&output=omeka-xml";
 $rawurl = str_replace ("<!QUERY!>" , $search_string , $rawurl); // sette inn søketerm
-$antalltreff['bokhylla'] = ''; // nullstiller i tilfelle søket feiler
-$bokhyllatreff = '';
+
+$xml = get_content($rawurl);
+
+if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
+	$xmldata = simplexml_load_string($xml);
+	$antalltreff['omekadeichman'] = $xmldata->miscellaneousContainer->pagination->totalResults;
+} else {
+	$antalltreff['omekadeichman'] = 0;
+}
+
+$omekadeichmantreff = '';
 
 // LASTE TREFFLISTE SOM XML
 $xml = get_content($rawurl);
@@ -14,23 +29,24 @@ $xml = get_content($rawurl);
 if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 	$xmldata = simplexml_load_string($xml);
-	
-	// FINNE ANTALL TREFF
-	$antalltreff['bokhylla'] = substr(stristr($xmldata->subtitle, " of ") , 4);
-	
-	// ... SÅ HVERT ENKELT TREFF
 	$teller = 0;
-	foreach ($xmldata->entry as $entry) {
+	foreach ($xmldata->item as $entry) {
 		if ($teller < $makstreff) {
 
-			// METADATA SOM XML FOR DETTE TREFFET
-			$childxml = ($entry->link[0]->attributes()->href); // Dette er XML med metadata
-			$xmlfile = get_content($childxml);
-			$childxmldata = simplexml_load_string($xmlfile);
-			$namespaces = $entry->getNameSpaces(true);
-			$nb = $entry->children($namespaces['nb']);
+			$omekadeichman[$teller]['slug'] = 'omekadeichman';
+			$omekadeichman[$teller]['kilde'] = 'Lokalhistoriske bildebaser i Oslo (Deichman)';
+			$omekadeichman[$teller]['id'] = $entry->attributes()->itemId;
+			$omekadeichman[$teller]['url'] = 'http://bildebaser.deichman.no/items/show/' . $entry->attributes()->itemId;
 
-			$bokhyllatreff[$teller]['tittel'] = $childxmldata->titleInfo->title;
+			$omekadeichman[$teller]['bilde'] = $entry->fileContainer->file->src;
+			$omekadeichman[$teller]['bilde'] = str_replace ("/original/" , "/square_thumbnails/" , $omekadeichman[$teller]['bilde']);
+			$omekadeichman[$teller]['bilde'] = str_replace (".tif" , ".jpg" , $omekadeichman[$teller]['bilde']);
+			$omekadeichman[$teller]['tittel'] = $childxmldata->titleInfo->title;
+
+domp ($entry);
+
+
+
 			if (isset($childxmldata->titleInfo->subTitle)) {
 				$bokhyllatreff[$teller]['tittel'] .= " : " . $childxmldata->titleInfo->subTitle;
 			}
@@ -85,13 +101,10 @@ if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			} else {
 				$bokhyllatreff[$teller]['bilde'] = $generiskbokomslag; // DEFAULTOMSLAG
 			}
-
-			$bokhyllatreff[$teller]['digidato'] = substr ($urn , 24, 6);
-			$bokhyllatreff[$teller]['dato'] = $nb->date;	
+	
 			$bokhyllatreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
 			$bokhyllatreff[$teller]['kilde'] = "Bokhylla";
 			$bokhyllatreff[$teller]['slug'] = "bokhylla";
-			$bokhyllatreff[$teller]['id'] = $urn;
 			$teller++;
 		}
 	} // SLUTT PÅ HVERT ENKELT TREFF

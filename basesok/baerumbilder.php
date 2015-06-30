@@ -61,7 +61,13 @@ $beskrivelse = '';
 	// ID
 	if ($record->getField("001")) {
 		$baerumbildertreff[$hitcounter]['id'] = ($record->getField("001"));
-		$baerumbildertreff[$hitcounter]['id'] = substr($baerumbildertreff[$hitcounter]['id'] , 5);
+		$baerumbildertreff[$hitcounter]['id'] = trim(substr($baerumbildertreff[$hitcounter]['id'] , 5));
+	}
+
+	// Digitalisert dato
+	if ($record->getField("008")) {
+		$baerumbildertreff[$hitcounter]['digidato'] = ($record->getField("008"));
+		$baerumbildertreff[$hitcounter]['digidato'] = trim(substr($baerumbildertreff[$hitcounter]['digidato'] , 5));
 	}
 
 	// Slug og navn
@@ -88,6 +94,9 @@ $beskrivelse = '';
 	if ($record->getField("260")) {
 		if ($record->getField("260")->getSubfield("c")) {
 			$baerumbildertreff[$hitcounter]['tittel'] .= " (" . substr($record->getField("260")->getSubfield("c") , 5) . ")";
+			$baerumbildertreff[$hitcounter]['dato'] = trim(substr($record->getField("260")->getSubfield("c") , 5));
+			$baerumbildertreff[$hitcounter]['dato'] = trim(str_replace (":" , "-" , $baerumbildertreff[$hitcounter]['dato']));
+
 		}
 	}
 
@@ -180,6 +189,5 @@ $beskrivelse = '';
 } // SLUTT PÅ HVERT ENKELT TREFF
 
 $treff = array_merge_recursive ((array) $baerumbildertreff , (array) $treff);
-	
-?>
 
+// SLUTT

@@ -151,16 +151,40 @@ td.lokalhisttd h4 {
 	background-color: #eee;
 	width: 96%;
 	padding: 10px 2%;
-	line-height: 1em;
+	line-height: 1.1em;
 }
 
 .rowodd {
 	background-color: #ddd;
 	width: 96%;
 	padding: 10px 2%;
-	line-height: 1em;
+	line-height: 1.1em;
 }
 
 .roweven a, .rowodd a {
 	text-decoration: none;
+}
+
+.oneitem {
+	position: relative;
+}
+
+.karusellcaption {
+    position:absolute; 
+ 	bottom:0px; 
+    left:0px;  
+    width:94%;
+	padding: 10px 3%;  
+    background-color:black; 
+	line-height: 1em; 
+    font-size:1.2em;  
+    color:white;  
+    opacity:0.6; 
+    filter:alpha(opacity=60);
+}
+
+.karusellcaption h2 {
+	margin: 0;
+	padding: 0;
+	line-height: 1em;
 }

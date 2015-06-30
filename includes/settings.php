@@ -56,7 +56,7 @@ $visning = "";
 		<option value="enkelliste">Enkel liste</option>
 		<option value="flislagt">Flislagt</option>
 		<option value="rss">RSS</option>
-<!--	<option value="slideshow">Slideshow</option>-->
+		<option value="karusell">Karusell</option>
 		</select>
 		<br>
 

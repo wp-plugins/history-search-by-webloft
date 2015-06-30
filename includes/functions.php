@@ -46,5 +46,3 @@ if (!function_exists('trunc')) {
 function merbaseinfo ($lenke) { // Viser lenke til mer info om en base
  echo '[<a target="_blank" href="' . $lenke . '">mer info</a>]';
 }
-
-?>

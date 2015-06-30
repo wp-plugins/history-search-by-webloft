@@ -119,5 +119,4 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 $treff = array_merge_recursive ((array) $norvegianaalletreff , (array) $treff);
 
-?>
-
+// slutt

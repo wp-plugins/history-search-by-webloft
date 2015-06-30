@@ -36,4 +36,4 @@ $antalltreff['lokalhistoriewiki'] = count ($treffliste);
 
 $treff = @array_merge_recursive ((array) $lokalhistoriewikitreff , (array) $treff);
 
-?>
+// SLUTT
