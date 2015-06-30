@@ -35,6 +35,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			$abm = $entry->fields->children('abm', true);
 			
 			// DATO
+			unset ($mindato, $rawdates, $leddene, $startdato, $sluttdato);
 			if (isset($dc->date)) {
 				if ((stristr($dc->date, "start=")) || (stristr($dc->date, "end="))) { // dilledato
 					$rawdates = explode (";" , $dc->date);
@@ -61,8 +62,9 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 				} else { // ikke tulledato
 				$mindato = $dc->date;
 				}
-			}
-			
+			} else { // datofelt finnes ikke
+				$mindato = '';
+			}			
 
 			if ($abm->estateNr != "") {
 				$stedsinfo[] = $abm->estateName . " " . $abm->estateNr;
@@ -102,11 +104,16 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			if (isset($dc->creator)) {
 				$norvegianadimutreff[$teller]['ansvar'] = htmlspecialchars($dc->creator);
+			} else {
+				$norvegianadimutreff[$teller]['ansvar'] = "N.N.";
 			}
 
 			$norvegianadimutreff[$teller]['bilde'] = $delving->thumbnail;
 			$norvegianadimutreff[$teller]['kilde'] = "Norvegiana (Digitalt Museum)";
 			$norvegianadimutreff[$teller]['slug'] = 'norvegianadimu';
+			$norvegianadimutreff[$teller]['digidato'] = substr(str_replace ("-" , "" , $abm->digitised) , 2);
+			$norvegianadimutreff[$teller]['dato'] = $mindato; // se lenger opp
+			$norvegianadimutreff[$teller]['id']	= (string) $dc->identifier;
 
 			$teller++;
 			

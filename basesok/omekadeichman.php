@@ -35,82 +35,105 @@ if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			$omekadeichman[$teller]['slug'] = 'omekadeichman';
 			$omekadeichman[$teller]['kilde'] = 'Lokalhistoriske bildebaser i Oslo (Deichman)';
-			$omekadeichman[$teller]['id'] = $entry->attributes()->itemId;
+			$omekadeichman[$teller]['id'] = (string) $entry->attributes()->itemId;
 			$omekadeichman[$teller]['url'] = 'http://bildebaser.deichman.no/items/show/' . $entry->attributes()->itemId;
 
 			$omekadeichman[$teller]['bilde'] = $entry->fileContainer->file->src;
-			$omekadeichman[$teller]['bilde'] = str_replace ("/original/" , "/square_thumbnails/" , $omekadeichman[$teller]['bilde']);
+			$omekadeichman[$teller]['bilde'] = str_replace ("/original/" , "/fullsize/" , $omekadeichman[$teller]['bilde']);
 			$omekadeichman[$teller]['bilde'] = str_replace (".tif" , ".jpg" , $omekadeichman[$teller]['bilde']);
-			$omekadeichman[$teller]['tittel'] = $childxmldata->titleInfo->title;
 
-domp ($entry);
-
-
-
-			if (isset($childxmldata->titleInfo->subTitle)) {
-				$bokhyllatreff[$teller]['tittel'] .= " : " . $childxmldata->titleInfo->subTitle;
-			}
-			if (isset($childxmldata->titleInfo->partNumber)) {
-				$bokhyllatreff[$teller]['tittel'] .= "<br>" . $childxmldata->titleInfo->partNumber;
-			}
-			if (isset($childxmldata->titleInfo->partName)) {
-				$bokhyllatreff[$teller]['tittel'] .= " : " . $childxmldata->titleInfo->partName;
+			foreach ($entry->itemType->elementContainer->element as $elementcontainer) {
+				// Dirty tilordne alle
+				$fieldid = (string) $elementcontainer->attributes();
+				$tempura[$fieldid] = (string) $elementcontainer->elementTextContainer->elementText->text;
 			}
 
-			$bokhyllatreff[$teller]['ansvar'] = $nb->namecreator;
-
-			// UTGITT
-
-			unset ($utgitt);
-			if (isset($childxmldata->originInfo->place[1])) {
-				$utgitt[] = $childxmldata->originInfo->place[1];
+			if (isset($tempura['137'])) {
+				$omekadeichman[$teller]['ansvar'] = $tempura['137'];
 			}
 
-			if (isset($childxmldata->originInfo->publisher)) {
-				$utgitt[] = $childxmldata->originInfo->publisher;
+			if (isset($tempura['152'])) {
+				$omekadeichman[$teller]['digidato'] = date ("ymd" , strtotime ($tempura['152']) );
 			}
 
-			if (isset($childxmldata->originInfo->dateIssued[0])) {
-				$utgitt[] = $childxmldata->originInfo->dateIssued[0];
-			}
-			$bokhyllatreff[$teller]['utgitt'] = implode (" " , $utgitt);
-
-			if (isset($childxmldata->physicalDescription->extent)) {
-				$bokhyllatreff[$teller]['omfang'] = $childxmldata->physicalDescription->extent;
+				
+			if (!isset($omekadeichman[$teller]['ansvar'])) {
+				$omekadeichman[$teller]['ansvar'] = 'Ukjent opphavsperson';
 			}
 
-			// BESKRIVELSE
-			$bokhyllatreff[$teller]['beskrivelse'] = $bokhyllatreff[$teller]['utgitt'];
-			$bokhyllatreff[$teller]['beskrivelse'] .= "<br>" . $bokhyllatreff[$teller]['omfang'];
-			
+			foreach ($entry->elementSetContainer->elementSet->elementContainer->element as $elementcontainer) {
 
-			if (isset($childxmldata->note)) {
-				$bokhyllatreff[$teller]['beskrivelse'] .= "<br>" . $childxmldata->note;
+				// Dirty tilordne alle
+				$fieldid = (string) $elementcontainer->attributes();
+				$tempura[$fieldid] = (string) $elementcontainer->elementTextContainer->elementText->text;
 			}
 
-			// BOKOMSLAG, SE http://www-sul.stanford.edu/iiif/image-api/1.1/#parameters
-			if (stristr($nb->urn , ";")) {
-				$tempura = explode (";" , $nb->urn);
-				$urn = trim($tempura[1]); // vi tar nummer 2 
-			} else {
-				$urn = $nb->urn[0];
+			foreach ($entry->elementSetContainer->elementSet->elementContainer->element as $elementcontainer) {
+
+				// Dirty tilordne alle
+				$fieldid = (string) $elementcontainer->attributes();
+				$tempura[$fieldid] = (string) $elementcontainer->elementTextContainer->elementText->text;
 			}
-			if ($urn != "") {
-				$delavurn = substr($urn , 8);
-				$bokhyllatreff[$teller]['bilde'] = "http://bokforsider.webloft.no/urn/" . $delavurn . ".jpg";
-			} else {
-				$bokhyllatreff[$teller]['bilde'] = $generiskbokomslag; // DEFAULTOMSLAG
+
+			$omekadeichman[$teller]['tittel'] = $tempura['50'];
+			if (isset($tempura['40'])) {
+				$omekadeichman[$teller]['dato'] = filter_var($tempura['40'], FILTER_SANITIZE_NUMBER_INT);
 			}
-	
-			$bokhyllatreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
-			$bokhyllatreff[$teller]['kilde'] = "Bokhylla";
-			$bokhyllatreff[$teller]['slug'] = "bokhylla";
+
+			if (isset($tempura['156'])) {
+				$tempsted[] = $tempura['156']; 
+			}
+
+			if (isset($tempura['154'])) {
+				$tempsted[] = $tempura['154'];
+			}
+
+			if (isset($tempura['153'])) {
+				$tempsted[] = $tempura['153'];
+			}
+
+			$sted = implode (" / " , $tempsted);
+			unset ($tempsted);
+
+			@$omekadeichman[$teller]['beskrivelse'] = $tempura['41'] . " " . $tempura['161'] . " <b>Sted:</b> " . $sted . ".";
+			if (isset($omekadeichman[$teller]['ansvar'])) {
+				$omekadeichman[$teller]['beskrivelse'] .= " <b>Fotograf:</b> " . $omekadeichman[$teller]['ansvar'] . ".";
+			}
+
+			if (isset($tempura['40'])) {
+				$omekadeichman[$teller]['beskrivelse'] .= " <b>Datering:</b> " . $tempura['40'];
+			}
+
+			if (isset($tempura['148'])) {
+				$omekadeichman[$teller]['beskrivelse'] .= " <b>Rettigheter:</b> " . $tempura['148'];
+			}
+
 			$teller++;
 		}
 	} // SLUTT PÅ HVERT ENKELT TREFF
-
 } // slutt på "vi fikk XML-fil tilbake
 
-$treff = array_merge_recursive ((array) $bokhyllatreff , (array) $treff);
+$treff = array_merge_recursive ((array) $omekadeichman , (array) $treff);
 
 // SLUTT
+
+/*
+137: Fotograf
+156: Gårdsnavn
+154: Sted, nærmere bestemt
+153: Bydel
+157: Farger eller S/H?
+159: Navn på giver
+160: Navn på kilde til informasjon om bildet
+148: Rettighetseier til bildet
+152: Dato bildet ble registrert (dd.mm.åååå)
+161: Andre kommentarer
+
+50: Tittel 
+49: Emne
+41: Beskrivelse
+40: Dato (format: "mai 1984")
+*/
+
+
+

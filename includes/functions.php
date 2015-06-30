@@ -43,6 +43,14 @@ if (!function_exists('trunc')) {
 	}
 }
 
-function merbaseinfo ($lenke) { // Viser lenke til mer info om en base
- echo '[<a target="_blank" href="' . $lenke . '">mer info</a>]';
+if (!function_exists('tilstreng')) {	
+	function tilstreng(&$item){
+	   $item = (string) $item;
+	}
+}
+
+if (!function_exists('merbaseinfo')) {
+	function merbaseinfo ($lenke) { // Viser lenke til mer info om en base
+	 echo '[<a target="_blank" href="' . $lenke . '">mer info</a>]';
+	}
 }

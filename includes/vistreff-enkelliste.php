@@ -1,5 +1,4 @@
 <?php
-domp ($treff);
 // Viser treffliste SOM ENKEL LISTE
 $treffliste = '';
 $treffhtml = '';
@@ -11,7 +10,7 @@ $row = array('rowodd' , 'roweven');
 
 $singlehtml = '<div class="pendelString">' . "\n";
 $singlehtml .= '<a target="_blank" href="urlString">' . "\n";
-$singlehtml .= "<strong>titleString</strong>&nbsp;:&nbsp; ";
+$singlehtml .= "<h3 style=\"margin: 0; padding: 0;\">titleString</h3>";
 $singlehtml .= "descriptionString. ";
 $singlehtml .= "<i>Kilde: </i>basenavnString\n";
 $singlehtml .= '</a>' . "\n";

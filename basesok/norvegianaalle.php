@@ -12,7 +12,6 @@ $rawurl = str_replace ("<!QUERY!>" , $search_string , $rawurl); // sette inn sø
 $antalltreff['norvegianaalle'] = ''; // nullstiller i tilfelle søket feiler
 $norvegianaalletreff = '';
 
-
 // LASTE TREFFLISTE SOM XML
 
 $xmlfile = get_content($rawurl);
@@ -37,6 +36,8 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			$abm = $entry->fields->children('abm', true);
 
 			// DATO
+			unset ($mindato, $rawdates, $leddene, $startdato, $sluttdato);
+
 			if (isset($dc->date)) {
 				if ((stristr($dc->date, "start=")) || (stristr($dc->date, "end="))) { // dilledato
 					$rawdates = explode (";" , $dc->date);
@@ -60,16 +61,11 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 						$mindato = $sluttdato;
 					}				
 
-/*
-					$rawdate = substr ($dc->date, 6, 10);
-					$mindato = substr ($rawdate, 8, 2) . "." . substr ($rawdate, 5, 2) . "." . substr ($rawdate , 0, 4);
-					if (substr($mindato, 0, 6) == "01.01.") { // Første i første er som regel bare tull
-						$mindato = substr($mindato, 6, 4);
-					}
-*/
 				} else { // ikke tulledato
 				$mindato = $dc->date;
 				}
+			} else { // datofelt finnes ikke
+				$mindato = '';
 			}
 
 			if ($abm->estateNr != "") {
@@ -89,7 +85,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 				$stedet = "<br><strong>Sted: </strong>" . $stedet;
 			}
 
-			$norvegianaalletreff[$teller]['url'] = $delving->landingPage;
+			$norvegianaalletreff[$teller]['url'] = (string) $delving->landingPage;
 			$norvegianaalletreff[$teller]['beskrivelse'] = htmlspecialchars(strip_tags($delving->description));
 
 			// Hvis vi finner ting som &amp;oslash er det en html-encoding for mye...
@@ -102,15 +98,23 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			if ((isset($mindato)) && ($mindato != "")) {
 				$norvegianaalletreff[$teller]['beskrivelse'] .= "<br /><strong>Datering: </strong>" . $mindato;
 			}
-			if (isset($delving->creator)) {
-				$norvegianaalletreff[$teller]['tittel'] = htmlspecialchars($delving->creator);
-			} else {
-				$norvegianaalletreff[$teller]['tittel'] = htmlspecialchars($delving->title);
-			}	
-			$norvegianaalletreff[$teller]['bilde'] = $delving->thumbnail;
+
+			$norvegianaalletreff[$teller]['tittel'] = htmlspecialchars($delving->title);
+	
+			$norvegianaalletreff[$teller]['bilde'] = (string) $delving->thumbnail;
 			$norvegianaalletreff[$teller]['kilde'] = "Norvegiana (alle)";
 			$norvegianaalletreff[$teller]['slug'] = 'norvegianaalle';
-	
+
+			if (isset($delving->creator)) {
+				$norvegianaalletreff[$teller]['ansvar'] = (string) $delving->creator;
+			} else {
+				$norvegianaalletreff[$teller]['ansvar'] = "N.N.";
+			}
+
+			$norvegianaalletreff[$teller]['digidato'] = substr(str_replace ("-" , "" , $abm->digitised) , 2);
+			$norvegianaalletreff[$teller]['dato'] = $mindato; // se lenger opp
+			$norvegianaalletreff[$teller]['id']	= (string) $dc->identifier;
+
 			$teller++;
 			
 		}

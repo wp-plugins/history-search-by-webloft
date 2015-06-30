@@ -33,9 +33,11 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 		if ($teller < $makstreff) {
 			$delving = $entry->fields->children('delving', true);
 			$dc = $entry->fields->children('dc', true);
+			$dcterms = $entry->fields->children('dcterms', true);
 			$abm = $entry->fields->children('abm', true);
 
 			// DATO
+			unset ($mindato, $rawdates, $leddene, $startdato, $sluttdato);
 			if (isset($dc->date)) {
 				if ((stristr($dc->date, "start=")) || (stristr($dc->date, "end="))) { // dilledato
 					$rawdates = explode (";" , $dc->date);
@@ -62,6 +64,8 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 				} else { // ikke tulledato
 				$mindato = $dc->date;
 				}
+			} else { // datofelt finnes ikke
+				$mindato = '';
 			}
 			
 
@@ -103,12 +107,17 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			if (isset($dc->creator)) {
 				$norvegianadifotreff[$teller]['ansvar'] = htmlspecialchars($dc->creator);
+			} else {
+				$norvegianadifotreff[$teller]['ansvar'] = "N.N.";
 			}
 
 			$norvegianadifotreff[$teller]['bilde'] = $delving->thumbnail;
 			$norvegianadifotreff[$teller]['kilde'] = "Norvegiana (Digitalt fortalt)";
 			$norvegianadifotreff[$teller]['slug'] = 'norvegianadifo';
-	
+			$norvegianadifotreff[$teller]['digidato'] = substr(str_replace ("-" , "" , $abm->digitised) , 2);
+			$norvegianadifotreff[$teller]['dato'] = $norvegianadifotreff[$teller]['digidato']; // spesielt for difo
+			$norvegianadifotreff[$teller]['id']	= (string) $dc->identifier;
+
 			$teller++;
 			
 		}
@@ -118,3 +127,4 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 $treff = @array_merge_recursive ((array) $norvegianadifotreff , (array) $treff);
 
 // slutt
+

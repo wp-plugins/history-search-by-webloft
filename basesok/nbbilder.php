@@ -33,9 +33,9 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			// FINNE URN			
 			if (stristr($nb->urn , ";")) {
 				$tempura = explode (";" , $nb->urn);
-				$urn = trim($tempura[1]); // vi tar nummer 2 
+				$urn = trim((string) $tempura[1]); // vi tar nummer 2 
 			} else {
-				$urn = $nb->urn[0];
+				$urn = (string) $nb->urn;
 			}
 			
 			$nbbildertreff[$teller]['bilde'] = "http://www.nb.no/gallerinor/hent_bilde.php?id=" . $childxmldata->recordInfo->recordIdentifier . "&size=1";
@@ -46,7 +46,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			
 			$nbbildertreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
 			if ((isset($nb->subjectname)) && ($nb->subjectname != '')) {
-				$nbbildertreff[$teller]['tittel'] = $nb->subjectname;
+				$nbbildertreff[$teller]['tittel'] = (string) $nb->subjectname;
 			} else {
 				$nbbildertreff[$teller]['tittel'] = '(Uten tittel)';
 			}
@@ -59,9 +59,11 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 
 			if ((isset($nb->year)) && (trim($nb->year) != '')) {
-				$nbbildertreff[$teller]['utgitt'] = $nb->year;
+				$nbbildertreff[$teller]['utgitt'] = (string) $nb->year;
 			}
+
 			$nbbildertreff[$teller]['beskrivelse'] = str_ireplace ("prot: ", "<strong>Protokoll: </strong>" , $entry->summary); // Fjerne "Prot: " i starten
+			$nbbildertreff[$teller]['beskrivelse'] = str_replace ("<br>" , "" , $nbbildertreff[$teller]['beskrivelse']);
 
 			if (isset($nb->subjectname)) {
 				$nbbildertreff[$teller]['beskrivelse'] .= "<br><strong>Motiv: </strong>" . $nb->subjectname;
@@ -77,10 +79,16 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			$nbbildertreff[$teller]['kilde'] = "Nasjonalbiblioteket - bilder";
 			$nbbildertreff[$teller]['slug'] = "nbbilder";
-			
+			$nbbildertreff[$teller]['id'] = $urn;
+			if (!stristr($urn , "URN:NBN:no-nb_foto")) { // bogus URN som vi ikke kan få dato fra
+				$nbbildertreff[$teller]['digidato'] = substr ($urn , 24, 6);
+			}
+			$nbbildertreff[$teller]['dato'] = str_replace ("-" , "" , $nb->date);	
+
 			$teller++;
 		}
 	} // SLUTT PÅ HVERT ENKELT TREFF
+
 } // Slutt på "vi fikk XML tilbake"
 
 $treff = array_merge_recursive ((array) $nbbildertreff , (array) $treff);

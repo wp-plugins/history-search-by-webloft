@@ -63,11 +63,6 @@ if ($baser != '') {
 	}
 
 	// Gjøre om alt til rene strenger (fra XML og sånt)
-	
-	function tilstreng(&$item){
-	   $item= (string) $item;
-	}
-	
 	array_walk_recursive($treff,'tilstreng');
 	
 	// HVILKEN SORTERING ER VALGT?
@@ -91,13 +86,12 @@ if ($baser != '') {
 	// array_filter uten argumenter fjerner tomme elementer
 
 	$treff = array_filter( $treff );
-
 	if (count($treff) > 0) { // må ha noen treff
 		// Hvis ikke RSS så vis
 		if ($visning != 'rss') { // Visning er ikke RSS
 			include ('includes/vistreff-' . $visning . '.php');
 		} else { // visning er RSS
-			if ($_REQUEST['dorss'] == '1') { // og vi skal kjøre ut RSS
+			if ((isset($_REQUEST['dorss'])) && ($_REQUEST['dorss'] == '1')) { // og vi skal kjøre ut RSS
 				include ('includes/rss.php'); // lag og spytt ut RSS
 			} else { // Vi skal bare vise lenke til RSS
 				$serverdel = plugins_url( 'search.php', __FILE__ ); // det er search.php

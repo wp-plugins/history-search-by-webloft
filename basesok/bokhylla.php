@@ -87,7 +87,7 @@ if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			}
 
 			$bokhyllatreff[$teller]['digidato'] = substr ($urn , 24, 6);
-			$bokhyllatreff[$teller]['dato'] = $nb->date;	
+			$bokhyllatreff[$teller]['dato'] = str_replace ("-" , "" , $nb->date);	
 			$bokhyllatreff[$teller]['url'] = "http://urn.nb.no/" . $urn;
 			$bokhyllatreff[$teller]['kilde'] = "Bokhylla";
 			$bokhyllatreff[$teller]['slug'] = "bokhylla";
