@@ -2,8 +2,8 @@
 Contributors: sundaune
 Tags: Webekspertene, Aviser, Bilder, lokalhistorie, slektsgransking, slektsgranskning, PDF, Nasjonalbiblioteket, Bøker, bok, bygdehistorie, bygdebok, bygdebøker, historie, norvegiana, kulturnett, webløft, webloft, bibvenn, Bibliotekarens beste venn, kultur, kultursøk, norvegiana
 Requires at least: 4.0
-Tested up to: 4.1
-Stable tag: 2.1
+Tested up to: 4.2.2
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

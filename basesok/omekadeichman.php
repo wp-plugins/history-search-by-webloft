@@ -41,6 +41,7 @@ if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			$omekadeichman[$teller]['bilde'] = $entry->fileContainer->file->src;
 			$omekadeichman[$teller]['bilde'] = str_replace ("/original/" , "/fullsize/" , $omekadeichman[$teller]['bilde']);
 			$omekadeichman[$teller]['bilde'] = str_replace (".tif" , ".jpg" , $omekadeichman[$teller]['bilde']);
+			$omekadeichman[$teller]['bilde'] = str_replace (".JPG" , ".jpg" , $omekadeichman[$teller]['bilde']); // doh...
 
 			foreach ($entry->itemType->elementContainer->element as $elementcontainer) {
 				// Dirty tilordne alle

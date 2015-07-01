@@ -12,7 +12,7 @@
  * Plugin Name:       WL Kulturs&oslash;k
  * Plugin URI:        http://www.bibvenn.no/
  * Description:       S&oslash;ker etter lokalhistorisk materiale / search for historical material (books, images, video, audio...)
- * Version:           2.1
+ * Version:           2.0.1
  * Author:            H&aring;kon Sundaune / Bibliotekarens beste venn
  * Author URI:        http://www.bibvenn.no/
  * Text Domain:       wl-kultursok-locale
