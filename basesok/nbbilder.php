@@ -37,8 +37,8 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			} else {
 				$urn = (string) $nb->urn;
 			}
-			
-			$nbbildertreff[$teller]['bilde'] = "http://www.nb.no/gallerinor/hent_bilde.php?id=" . $childxmldata->recordInfo->recordIdentifier . "&size=1";
+
+			$nbbildertreff[$teller]['bilde'] = $childxmldata->location->url;
 	
 			if (stristr($nb->contentclasses , "jp2")) {
 				$nbbildertreff[$teller]['bilde'] = "http://www.nb.no/services/image/resolver?url_ver=geneza&urn=" . $urn . "&maxLevel=6&level=2&col=0&row=0&resX=6000&resY=6000&tileWidth=2048&tileHeight=2048";

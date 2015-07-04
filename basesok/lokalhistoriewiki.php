@@ -29,7 +29,7 @@ $antalltreff['lokalhistoriewiki'] = count ($treffliste);
 			$lokalhistoriewikitreff[$teller]['bilde'] = $lokalhistoriewikiomslag;
 			$lokalhistoriewikitreff[$teller]['kilde'] = "lokalhistoriewiki.no";
 			$lokalhistoriewikitreff[$teller]['slug'] = "lokalhistoriewiki";
-			$lokalhistoriewikitreff[$teller]['beskrivelse'] = "En artikkel fra lokalhistoriewiki.no";
+			$lokalhistoriewikitreff[$teller]['beskrivelse'] = "En leksikonartikkel.";
 			$teller++;
 		} // SLUTT PÅ HVERT ENKELT TREFF
 	}

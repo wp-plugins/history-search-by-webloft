@@ -93,7 +93,7 @@ if(substr($xml, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 				$tempsted[] = $tempura['153'];
 			}
 
-			$sted = implode (" / " , $tempsted);
+			$sted = @implode (" / " , $tempsted);
 			unset ($tempsted);
 
 			@$omekadeichman[$teller]['beskrivelse'] = $tempura['41'] . " " . $tempura['161'] . " <b>Sted:</b> " . $sted . ".";

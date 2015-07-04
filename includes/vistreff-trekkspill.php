@@ -48,7 +48,23 @@ foreach ($treff as $enkelttreff) {
 		$outhtml = str_replace ("ansvarString" , '' , $outhtml);
 	}
 	$outhtml = str_replace ("descriptionString" , trunc($enkelttreff['beskrivelse'] , 100) , $outhtml);
-	$outhtml = str_replace ("urltwitString" , urlencode($enkelttreff['url']) , $outhtml);
+
+	$fbparams = $enkelttreff['tittel'];
+	$fbparams .= "|x|";
+	$fbparams .= $enkelttreff['beskrivelse'];
+	$fbparams .= "|x|";
+	$fbparams .= $enkelttreff['url'];
+	$fbparams .= "|x|";
+	$fbparams .= $enkelttreff['bilde'];
+	$fbparams .= "|x|";
+	$fbparams .= $enkelttreff['ansvar'];
+	$fbparams = base64_encode ($fbparams);
+
+	$fburl = plugins_url('' , __FILE__) . "/gotourn.php?params=" . $fbparams;
+
+	$outhtml = str_replace ("gotournString" , $fburl , $outhtml);
+
+	$outhtml = str_replace ("urltwitString" , urlencode(trim($enkelttreff['url'])) , $outhtml);
 
 	$twitter = $enkelttreff['tittel'];
 	if ((isset($enkelttreff['ansvar'])) && ($enkelttreff['ansvar'] != '')) {

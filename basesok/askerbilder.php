@@ -183,7 +183,7 @@ $beskrivelse = '';
 		$askerbildertreff[$hitcounter]['beskrivelse'] .= "<br><b>Emneord: </b>" . implode (" ; " , $emne);
 	}
 
-	if (is_array($person)) {
+	if (@is_array($person)) {
 		$askerbildertreff[$hitcounter]['beskrivelse'] .= "<br><b>Personer: </b>" . implode (" ; " , $person);
 	}
 

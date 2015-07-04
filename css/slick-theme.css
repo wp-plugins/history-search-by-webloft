@@ -121,7 +121,9 @@ left: -40px;
 /* Dots */
 .slick-slider
 {
-    margin-bottom: 30px;
+    margin: 0 auto 30px auto;
+	width: 70%;
+	min-width: 600px;	
 }
 
 .slick-dots

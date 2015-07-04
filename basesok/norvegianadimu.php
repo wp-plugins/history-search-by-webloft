@@ -95,7 +95,7 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 
 			$norvegianadimutreff[$teller]['beskrivelse'] .= $stedet;
 			if ((isset($mindato)) && ($mindato != "")) {
-				$norvegianadimutreff[$teller]['beskrivelse'] .= "<br /><strong>Datering: </strong>" . $mindato;
+				$norvegianadimutreff[$teller]['beskrivelse'] .= "<br><strong>Datering: </strong>" . $mindato;
 			}
 
 			if (isset($dc->title)) {

@@ -82,10 +82,11 @@ if ($baser != '') {
 			break;
 	}
 
-	// FERDIG MED Å SØKE - SKRIVE UT RESULTATER
-	// array_filter uten argumenter fjerner tomme elementer
+	// RENS OPP I SØKERESULTATENE
+	include ('includes/sanitizesearch.php');
 
-	$treff = array_filter( $treff );
+	// FERDIG MED Å SØKE - SKRIVE UT RESULTATER
+
 	if (count($treff) > 0) { // må ha noen treff
 		// Hvis ikke RSS så vis
 		if ($visning != 'rss') { // Visning er ikke RSS
