@@ -114,7 +114,8 @@ if(substr($xmlfile, 0, 5) == "<?xml") { // vi fikk en XML-fil tilbake
 			$norvegianadifotreff[$teller]['bilde'] = $delving->thumbnail;
 			$norvegianadifotreff[$teller]['kilde'] = "Norvegiana (Digitalt fortalt)";
 			$norvegianadifotreff[$teller]['slug'] = 'norvegianadifo';
-			$norvegianadifotreff[$teller]['digidato'] = substr(str_replace ("-" , "" , $abm->digitised) , 2);
+			// Legger til "20" foran for å få dato på formatet ååååmmdd - ingen ting før 2000 uansett
+			$norvegianadifotreff[$teller]['digidato'] = "20" . substr(str_replace ("-" , "" , $abm->digitised) , 2);
 			$norvegianadifotreff[$teller]['dato'] = $norvegianadifotreff[$teller]['digidato']; // spesielt for difo
 			$norvegianadifotreff[$teller]['id']	= (string) $dc->identifier;
 

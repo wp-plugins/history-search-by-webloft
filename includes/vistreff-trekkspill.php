@@ -51,7 +51,7 @@ foreach ($treff as $enkelttreff) {
 
 	$fbparams = $enkelttreff['tittel'];
 	$fbparams .= "|x|";
-	$fbparams .= $enkelttreff['beskrivelse'];
+	$fbparams .= trunc($enkelttreff['beskrivelse'], 100);
 	$fbparams .= "|x|";
 	$fbparams .= $enkelttreff['url'];
 	$fbparams .= "|x|";
@@ -59,7 +59,6 @@ foreach ($treff as $enkelttreff) {
 	$fbparams .= "|x|";
 	$fbparams .= $enkelttreff['ansvar'];
 	$fbparams = base64_encode ($fbparams);
-
 	$fburl = plugins_url('' , __FILE__) . "/gotourn.php?params=" . $fbparams;
 
 	$outhtml = str_replace ("gotournString" , $fburl , $outhtml);

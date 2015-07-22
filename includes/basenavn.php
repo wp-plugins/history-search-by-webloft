@@ -8,7 +8,6 @@ $basenavn = array();
 $basenavn[] = "bokhylla|x|Bokhylla|x|http://www.nb.no/Tilbud/Samlingen/Samlingen/Boeker/Bokhylla.no";
 $basenavn[] = "nbbilder|x|Bilder fra NB|x|http://www.nb.no/Tilbud/Samlingen/Samlingen/Bilder";
 $basenavn[] = "lokalhistoriewiki|x|Lokalhistoriewiki|x|https://lokalhistoriewiki.no/index.php/Hjelp:Om_wikien";
-$basenavn[] = "norvegianaalle|x|Norvegiana (alle)|x|http://no.wikipedia.org/wiki/Norvegiana_API";
 $basenavn[] = "norvegianadifo|x|Norvegiana (Digitalt fortalt)|x|http://digitaltfortalt.no/info/about";
 $basenavn[] = "norvegianadimu|x|Norvegiana (Digitalt Museum)|x|https://digitaltmuseum.no/info/digitaltmuseum";
 $basenavn[] = "baerumkunst|x|Bærum biblioteks kunstbase|x|http://bibliotek.baerum.kommune.no/Nyheter/Kunstsamling";

@@ -20,70 +20,75 @@ $visning = "";
 
         <p>
 		<?php
-		echo '<table border="1">' . "\n";
+		$row[0] = 'eee';
+		$row[1] = 'fff';
+		$pendel = 0;
+		echo '<table class="settingstabell">' . "\n";
 		require_once ("basenavn.php");
 		foreach ($basenavn as $enbase) {
 			$splitt = explode ("|x|" , $enbase);
-			echo $splitt[1] . "&nbsp";
-			echo '<input name="baser[]" type="checkbox" value="' . $splitt[0] . '" />';
+			echo '<tr style="background-color: #' . $row[$pendel] . ';"><td>' . $splitt[1];
+			echo '</td><td><input name="baser[]" type="checkbox" value="' . $splitt[0] . '" /></td>';
+			echo '<td>';
 			merbaseinfo ($splitt[2]);
-			echo "<br>\n\n";
+			echo '</td>';
+			echo "</tr>\n\n";
+			$pendel = (1 - $pendel);
 		}
 		echo "</table>";
 
-		
-/*
-
-    Artsdatabanken - IKKE FORELØPIG
-    X - Digitalt fortalt – difo
-    X - DigitaltMuseum – DiMu
-    Industrimuseum
-    Kulturminnesøk
-    MUSIT
-    Naturbase
-    Stedsnavn
-*/
 ?>
 
 		</p>
 
 		<h3>Utseende</h3>
 		<p>
+		<table class="settingstabell">
+		<tr>
+		<td><label for="visning">Hvordan skal vi vise trefflisten?</label></td>
+		<td><select name="visning">
+			<option value="trekkspill" selected>Trekkspill</option>
+			<option value="enkelliste">Enkel liste</option>
+			<option value="flislagt">Flislagt</option>
+			<option value="rss">RSS</option>
+			<option value="karusell">Karusell</option>
+		</select></td>
+		</tr>
 
-		<label for="visning">Hvordan skal vi vise trefflisten?</label>&nbsp;
-		<select name="visning">
-		<option value="trekkspill" selected>Trekkspill</option>
-		<option value="enkelliste">Enkel liste</option>
-		<option value="flislagt">Flislagt</option>
-		<option value="rss">RSS</option>
-		<option value="karusell">Karusell</option>
-		</select>
-		<br>
+		<tr>
+		<td><label for="makstreff">Hvor mange treff skal vi maksimalt hente fra hver base?</label></td>
+		<td><select name="makstreff">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15" selected>15</option>
+			<option value="20">20</option>
+			<option value="25">25</option>
+		</select></td>
+		</tr>
 
-		<label for="makstreff">Hvor mange treff skal vi maksimalt hente fra hver base?</label>&nbsp;
-		<select name="makstreff">
-		<option value="5">5</option>
-		<option value="10">10</option>
-		<option value="15" selected>15</option>
-		<option value="20">20</option>
-		<option value="25">25</option>
-		</select>
-		<br>
+		<tr>
+		<td><label for="sortering">Hvordan skal vi sortere disse treffene?</label></td>
+		<td><select name="sortering">
+			<option value="base" selected>Etter kilde</option>
+			<option value="tittel_asc">Tittel A-Å</option>
+			<option value="tittel_desc">Tittel Å-A</option>
+			<option value="digidato_asc">Registreringsdato, stigende</option>
+			<option value="digidato_desc">Registreringsdato, synkende</option>
+			<option value="dato_asc">Datering, stigende</option>
+			<option value="dato_desc">Datering, synkende</option>
+			<option value="ansvar_asc">Ansvarsangivelse A-Å</option>
+			<option value="ansvar_desc">Ansvarsangivelse Å-A</option>
+			<option value="tilfeldig">Stokk resultatene tilfeldig hver gang</option>
+		</select></td>
+		</tr>
+		</table>	
 
-		<label for="sortering">Hvordan skal vi sortere disse treffene?</label>&nbsp;
-		<select name="sortering">
-		<option value="base" selected>Etter kilde</option>
-		<option value="tittel">Etter tittel</option>
-		<option value="tilfeldig">Tilfeldig hver gang</option>
-		</select>
-		<br>
-	
 	    </form>
 
 		</p>
 
 		<h3>Shortcode til å lime inn i innlegg eller på sider</h3>
 
-		<div id="ferdigshortcode"></div>
+		<div id="ferdigshortcode">(Shortcode dukker opp her når du foretar et valg)</div>
 		
 </div>

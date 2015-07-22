@@ -23,10 +23,21 @@ $tittel = '';
 $forfatter = '';
 $dc = '';
 
-$baser = esc_attr($_REQUEST['baser']);
+if (isset($_REQUEST['baser'])) {
+	$baser = esc_attr($_REQUEST['baser']);
+} else { $baser = ''; }
+
+if (isset($_REQUEST['visning'])) {
 $visning = esc_attr($_REQUEST['visning']);
+} else { $visning = ''; }
+
+if (isset($_REQUEST['sortering'])) {
 $sortering = esc_attr($_REQUEST['sortering']);
+} else { $sortering = ''; }
+
+if (isset($_REQUEST['makstreff'])) {
 $makstreff = (int) $_REQUEST['makstreff'];
+} else { $makstreff = ''; }
 
 // Twitter- og Facebookikoner og andre bilder
 
@@ -71,14 +82,65 @@ if ($baser != '') {
 		case "base":
 			 // Ingen ting, dette er standard
 			break;
+
 		case "tilfeldig":
 			shuffle ($treff);			
 			break;
-		case "tittel":
-			function sortByOption($a, $b) {
+
+		case "tittel_asc":
+			function wltittelasc($a, $b) {
 				return strcmp($a['tittel'], $b['tittel']);
 			}
-			usort($treff, 'sortByOption');
+			usort($treff, 'wltittelasc');
+			break;
+
+		case "tittel_desc":
+			function wltitteldesc($a, $b) {
+				return strcmp($b['tittel'], $a['tittel']);
+			}
+			usort($treff, 'wltitteldesc');
+			break;
+
+		case "digidato_asc":
+			function wldigidatoasc($a, $b) {
+				return strcmp($a['digidato'], $b['digidato']);
+			}
+			usort($treff, 'wldigidatoasc');
+			break;
+
+		case "digidato_desc":
+			function wldigidatodesc($a, $b) {
+				return strcmp($b['digidato'], $a['digidato']);
+			}
+			usort($treff, 'wldigidatodesc');
+			break;
+
+		case "dato_asc":
+			function wldatoasc($a, $b) {
+				return strcmp($a['dato'], $b['dato']);
+			}
+			usort($treff, 'wldatoasc');
+			break;
+
+		case "dato_desc":
+			function wldatodesc($a, $b) {
+				return strcmp($b['dato'], $a['dato']);
+			}
+			usort($treff, 'wldatodesc');
+			break;
+
+		case "ansvar_asc":
+			function wlansvarasc($a, $b) {
+				return strcmp($a['ansvar'], $b['ansvar']);
+			}
+			usort($treff, 'wlansvarasc');
+			break;
+
+		case "ansvar_desc":
+			function wlansvardesc($a, $b) {
+				return strcmp($b['ansvar'], $a['ansvar']);
+			}
+			usort($treff, 'wlansvardesc');
 			break;
 	}
 
@@ -109,6 +171,6 @@ if ($baser != '') {
 		echo "Ingen treff!";
 	}
 } else { // ops, ingen baser valgt
-	echo "<i>Du m&aring; velge noen s&oslash;kekilder i innstillingene f&oslash;r du kan f&aring; noen treff!</i>";
+	echo "<i>Du m&aring; velge noen s&oslash;kekilder f&oslash;r du kan f&aring; noen treff!</i>";
 }
 ?>
